@@ -16,4 +16,13 @@ function getAllActors(){
 	else
 		return $result;
 }
+
+$result = getAllActors();
+
+while($row = mysqli_fetch_array($result)) {
+	echo($row['firstname']);
+	echo(' ');
+	echo($row['lastname']);
+	echo('<br />');
+}
 ?>
