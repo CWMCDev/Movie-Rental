@@ -14,15 +14,7 @@ function getAllActors(){
 	if(empty($result))
 		return false;
 	else
-		return $result;
+		return mysqli_fetch_array($result);
 }
 
-$result = getAllActors();
-
-while($row = mysqli_fetch_array($result)) {
-	echo($row['firstname']);
-	echo(' ');
-	echo($row['lastname']);
-	echo('<br />');
-}
 ?>
