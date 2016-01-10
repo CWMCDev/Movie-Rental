@@ -1,6 +1,6 @@
 <?php
 
-include_once("utilities/database/databasecomm.php");
+include_once("../utilities/database/databasecomm.php");
 
 if(!empty($_GET['id'])){
     echo('<H1>'.$_GET['íd'].'</H1>');
