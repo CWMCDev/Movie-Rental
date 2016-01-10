@@ -7,6 +7,7 @@ if(!empty($_GET['id'])){
     echo('TRUE');
 
     echo(query("SELECT * FROM Actors"));
+    echo('TRUE');
 } else {
     echo("No id");
 }
