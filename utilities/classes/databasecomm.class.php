@@ -4,7 +4,7 @@
 include_once(__DIR__ . "/Database.class.php");
 include_once(__DIR__ . "/config.inc.php");
 
-echo(getAllActors());
+var_dump(getAllActors());
 function getAllActors(){
 	$db = new Database();
 	$db->doSQL("SELECT * FROM `Actors`;");
