@@ -37,7 +37,7 @@ if(!empty($_GET['id'])){
                     }
 
                     while($actor = mysqli_fetch_array($actorObjs)){
-                        showInfoForActor($actor, 3, 3);
+                        showInfoForActor($actor, 5, 3);
                         echo '<div class="col-md-1"></div>';
                     }
     echo '      </div>
