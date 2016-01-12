@@ -29,6 +29,7 @@ function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
 	                    Length: '.$length.' min
 	                    <br /> <br />
 	                    Rating: '.$rating.' stars
+	                    <br /> <br />
 	                    ';
 	                    $categoryObjs = getCategoriesFromMovie($id);
 	                    $categoryList = '';
