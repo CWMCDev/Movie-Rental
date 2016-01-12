@@ -4,7 +4,7 @@ function showInfoForActor($actor){
 	$firstName = $actor['firstname'];
 	$lastName = $actor['lastname'];
 	echo'
-	<div class="col-md-2 lib-item" data-category="view">
+	<div class="col-md-3 col-lg-2 lib-item" data-category="view">
 	    <div class="lib-panel">
 	        <div class="row box-shadow">
 	            <div class="col-md-6">
