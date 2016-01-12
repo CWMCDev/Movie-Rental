@@ -37,7 +37,7 @@ if(!empty($_GET['id'])){
                     }
 
                     while($actor = mysqli_fetch_array($actorObjs)){
-                        showInfoForActor($actor, 5, 3);
+                        showInfoForActor($actor, 12, 3);
                         echo '<div class="col-md-1"></div>';
                     }
     echo '      </div>
@@ -62,7 +62,7 @@ if(!empty($_GET['id'])){
                 }
 
                 while($movie = mysqli_fetch_array($movieObj)){
-                    showInfoForMovie($movie, 12, 3);
+                    showInfoForMovie($movie, 6, 3);
                     echo '<div class="col-md-1"></div>';
                 }
     echo '  </div>
