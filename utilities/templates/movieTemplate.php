@@ -4,7 +4,7 @@ function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
 	$title = $movie['name'];
 	$releaseDate = $movie['release_date'];
 	$description = $movie['description'];
-	$lenth = $movie['length'];
+	$length = $movie['length'];
 	$rating = $movie['rating'];
 	echo'
 	<div class="col-md-'.$mdWidth.' col-lg-'.$lgWidth.' lib-item" data-category="view">
@@ -22,6 +22,11 @@ function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
 		            </a>
 	                <div class="lib-row lib-desc">
 	                    '.$description.'
+	                    <br /> <br />
+	                    Length: '.$length.' min
+	                    <br /> <br />
+	                    Rating: '.$rating.' stars
+
 	                </div>
 	            </div>
 	        </div>

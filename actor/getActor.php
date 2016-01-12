@@ -25,8 +25,6 @@ if(!empty($_GET['id'])){
     	showInfoForActor($actor, 6, 4);
     }
 
-    $movieObjs = getMoviesFromActor($id);
-
     echo'
         <div class="col-md-6 col-lg-8">
             <div class="panel panel-default">

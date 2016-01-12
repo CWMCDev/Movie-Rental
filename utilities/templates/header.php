@@ -41,7 +41,7 @@ if(!isset($title) || !$title){
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="/index.php">Movies</a></li>
+          <li><a href="/movie/getMovie.php">Movies</a></li>
           <li><a href="/actor/getActor.php">Actors</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
