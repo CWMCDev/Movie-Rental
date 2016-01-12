@@ -22,7 +22,7 @@ class Database
 		//$link = mysql_connect($location, $login, $passsword)
 		$this->link = new mysqli($location, $login, $password, $dbName);
 		if ($this->link->connect_errno != 0) {
-				die("Can't connect to server...");
+				die('Unable to connect...');
 		}
 	}
 	
