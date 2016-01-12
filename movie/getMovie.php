@@ -62,7 +62,7 @@ if(!empty($_GET['id'])){
                 }
 
                 while($movie = mysqli_fetch_array($movieObj)){
-                    showInfoForMovie($movie);
+                    showInfoForMovie($movie, 6, 3);
                     echo '<div class="col-md-1"></div>';
                 }
     echo '  </div>
