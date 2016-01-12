@@ -13,10 +13,11 @@ function getActor($id){
 	$db->closeConnection();
 	$result = $db->getRecord();
 
-	if(empty($result))
+	if(mysqli_num_rows($result) == 0){
 		return false;
-	else
+	} else {
 		return $result;
+	}
 }
 
 function getActorNameLike($like){
@@ -27,10 +28,11 @@ function getActorNameLike($like){
 	$db->closeConnection();
 	$result = $db->getRecord();
 
-	if(empty($result))
+	if(mysqli_num_rows($result) == 0){
 		return false;
-	else
+	} else {
 		return $result;
+	}
 }
 
 function getAllActors(){
@@ -39,10 +41,11 @@ function getAllActors(){
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
-	if(empty($result))
+	if(mysqli_num_rows($result) == 0){
 		return false;
-	else
+	} else {
 		return $result;
+	}
 }
 
 function getMoviesFromActor($id){
@@ -53,10 +56,11 @@ function getMoviesFromActor($id){
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
-	if(empty($result))
+	if(mysqli_num_rows($result) == 0){
 		return false;
-	else
+	} else {
 		return $result;
+	}
 	
 }
 

@@ -13,15 +13,18 @@ if(!empty($_GET['srch-term'])){
     $actorObj = getActorNameLike($searchTerm);
 
 	if ($actorObj == false){
-		echo '<h1>There are no actors with that name known to us.</h1>';
+		echo '<h3>There are no actors with that name known to us.</h3>';
+	} else {
+		echo '<h1>Actors:</h1>';
+		while($actor = mysqli_fetch_array($actorObj)){
+    		$id = $actor['actor_id'];
+    		$firstName = $actor['firstname'];
+    		$lastName = $actor['lastname'];
+    		echo '<a href="/actor/getActor.php?id='.$id.'"><p>'.$firstName.' '.$lastName.'</p></a>';
+    	}
 	}
 
-    while($actor = mysqli_fetch_array($actorObj)){
-    	$id = $actor['actor_id'];
-    	$firstName = $actor['firstname'];
-    	$lastName = $actor['lastname'];
-    	echo '<a href="/actor/getActor.php?id='.$id.'"><p>'.$firstName.' '.$lastName.'</p></a>';
-    }
+
 }
 
 ?>
