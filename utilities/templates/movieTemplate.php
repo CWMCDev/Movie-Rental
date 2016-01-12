@@ -1,24 +1,27 @@
 <?php
-function showInfoForActor($actor, $mdWidth = 3, $lgWidth = 2){
-	$id = $actor['actor_id'];
-	$firstName = $actor['firstname'];
-	$lastName = $actor['lastname'];
+function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
+	$id = $movie['film_id'];
+	$title = $movie['name'];
+	$releaseDate = $movie['release_date'];
+	$description = $movie['description'];
+	$lenth = $movie['length'];
+	$rating = $movie['rating'];
 	echo'
 	<div class="col-md-'.$mdWidth.' col-lg-'.$lgWidth.' lib-item" data-category="view">
 	    <div class="lib-panel">
 	        <div class="row box-shadow">
 	            <div class="col-md-6">
-	                <img class="lib-img-show" src="/actor/img/'.$id.'.jpg">
+	                <img class="lib-img-show" src="/movie/img/'.$id.'.jpg">
 	            </div>
 	            <div class="col-md-6">
-	                <a href="/actor/getActor.php?id='.$id.'" >
+	                <a href="/movie/getMovie.php?id='.$id.'" >
 		                <div class="lib-row lib-header">
-		                    '.$firstName.' '.$lastName.'
+		                    '.$title.'
 		                    <div class="lib-header-seperator"></div>
 		                </div>
 		            </a>
 	                <div class="lib-row lib-desc">
-	                    Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+	                    '.$description.'
 	                </div>
 	            </div>
 	        </div>

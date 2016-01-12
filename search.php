@@ -5,6 +5,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/classes/databasecomm.class.
 $title = "Search";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/header.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/actorTemplate.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/movieTemplate.php");
 
 if(!empty($_GET['srch-term'])){
 	$searchTerm = $_GET['srch-term'];
@@ -13,15 +15,37 @@ if(!empty($_GET['srch-term'])){
     $actorObj = getActorNameLike($searchTerm);
 
 	if ($actorObj == false){
-		echo '<h3>There are no actors with that name known to us.</h3>';
+		echo'
+	    <div class="col-md-12">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                <h3 class="panel-title">Found Actors</h3>
+	            </div>
+	            <div class="panel-body">
+	            	<p>There are no actors with that name!</p>
+	            </div>
+	        </div>
+	    </div>';
 	} else {
-		echo '<h1>Actors:</h1>';
-		while($actor = mysqli_fetch_array($actorObj)){
-    		$id = $actor['actor_id'];
-    		$firstName = $actor['firstname'];
-    		$lastName = $actor['lastname'];
-    		echo '<a href="/actor/getActor.php?id='.$id.'"><p>'.$firstName.' '.$lastName.'</p></a>';
-    	}
+		echo'
+	    <div class="col-md-12">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                <h3 class="panel-title">Found Actors</h3>
+	            </div>
+	            <div class="panel-body">';
+	                if ($actorObj == false){
+	                    return $actorObj;
+	                }
+
+	                while($actor = mysqli_fetch_array($actorObj)){
+	                    showInfoForActor($actor);
+	                    echo '<div class="col-md-1"></div>';
+	                }
+	    echo '  </div>
+	        </div>
+	    </div>
+	    ';
 	}
 
 
