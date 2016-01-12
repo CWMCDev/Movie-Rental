@@ -5,6 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/classes/databasecomm.class.
 $title = "Actors";
 
 include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/header.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/actorTemplate.php");
 
 if(!empty($_GET['id'])){
 	$id = $_GET['id'];
@@ -36,6 +37,20 @@ if(!empty($_GET['id'])){
 
 
 } else {
-    //Show List Of Actors
+    $actorObj = getRandomActors(4);
+
+    if ($actorObj == false){
+        return $actorObj;
+    }
+
+    echo '<div class="col-md-12">';
+    while($actor = mysqli_fetch_array($actorObj)){
+        showInfoForActor($actor);
+        echo '<div class="col-md-1"></div>';
+    }
+    echo '</div>';
+
 }
+
+include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/templates/footer.php");
 ?>

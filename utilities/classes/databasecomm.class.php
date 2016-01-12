@@ -35,6 +35,21 @@ function getActorNameLike($like){
 	}
 }
 
+function getRandomActors($limit = 10){
+	$db = new Database();
+	$limit = mysqli_real_escape_string($db->link, $limit);
+
+	$db->doSQL("SELECT * FROM Actors ORDER BY RAND() LIMIT ".$limit);
+	$db->closeConnection();
+	$result = $db->getRecord();
+
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
+
 function getAllActors(){
 	$db = new Database();
 	$db->doSQL("SELECT * FROM `Actors`;");

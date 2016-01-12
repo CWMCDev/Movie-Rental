@@ -20,7 +20,8 @@ if(!isset($title) || !$title){
 
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="/utilities/main.css">
+  
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="dashboard.css">
@@ -34,13 +35,13 @@ if(!isset($title) || !$title){
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="dashboard.php">
+        <a class="navbar-brand" href="/index.php">
           <b>Rental</b>
         </a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="dashboard.php">Movies</a></li>
+          <li><a href="/index.php">Movies</a></li>
           <li><a href="/actor/getActor.php">Actors</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
