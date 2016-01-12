@@ -163,4 +163,24 @@ function getActorsFromMovie($id){
 	
 }
 
+function getCategoriesFromMovie($id){
+	$db = new Database();
+	$id = mysqli_real_escape_string($db->link, $id);
+	
+	$db->doSQL("SELECT * FROM `Categories` WHERE film_id='".$id."';");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
+
+//////////////////////
+//					//
+//	CATEGORIES 		//
+//					//
+//////////////////////
 ?>

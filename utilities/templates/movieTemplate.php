@@ -1,4 +1,7 @@
 <?php
+
+include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/classes/databasecomm.class.php");
+
 function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
 	$id = $movie['film_id'];
 	$title = $movie['name'];
@@ -26,8 +29,19 @@ function showInfoForMovie($movie, $mdWidth = 12, $lgWidth = 6){
 	                    Length: '.$length.' min
 	                    <br /> <br />
 	                    Rating: '.$rating.' stars
+	                    ';
+	                    $categoryObjs = getCategoriesFromMovie($id);
+	                    $categoryList = '';
+	                    while($category = mysqli_fetch_array($categoryObjs)){
+                        	if ($categoryList == ''){
+                        		$categoryList = $category['category'];
+                        	} else {
+                        		$categoryList .= ' - '.$category['category'];
+                        	}
+                    	}
+                    	echo 'Categories: '.$categoryList;
 
-	                </div>
+				echo'</div>
 	            </div>
 	        </div>
 	    </div>
