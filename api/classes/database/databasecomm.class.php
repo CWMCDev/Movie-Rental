@@ -183,4 +183,27 @@ function getCategoriesFromMovie($id){
 //	CATEGORIES 		//
 //					//
 //////////////////////
+
+function getAllCategories(){
+    $db = new Database();
+	$id = mysqli_real_escape_string($db->link, $id);
+	
+	$db->doSQL("SHOW COLUMNS FROM Categories WHERE Field = 'category'");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	$data = '';
+	while($results = mysqli_fetch_array($result)){
+    	$data = $results['Type'];
+    }
+    preg_match("/^enum\(\'(.*)\'\)$/", $data, $matches);
+    $enum = explode("','", $matches[1]);
+    return $enum;
+}
+
+
+
+
+
+
+
 ?>

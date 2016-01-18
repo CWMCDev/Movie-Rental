@@ -1,0 +1,39 @@
+<script type="text/javascript">
+var actor_id = "{{actor.actor_id}}";
+</script>
+<div class="col-md-4 lib-item" data-category="view">
+    <div class="lib-panel">
+        <div class="row box-shadow">
+            <div class="col-md-6">
+                <img class="lib-img-show" src="/actor/img/{{actor.actor_id}}.jpg">
+            </div>
+            <div class="col-md-6">
+                <div class="lib-row lib-header">
+                    <h2>{{actor.firstname}} {{actor.lastname}}</h2>
+                    <div class="lib-header-seperator"></div>
+                </div>
+                <div class="lib-row lib-desc">
+                    Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8" ng-controller="moviesController">
+	<div class="lib-panel" ng-repeat="movie in movies">
+        <div class="row box-shadow">
+            <div class="col-md-6">
+                <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
+            </div>
+            <div class="col-md-6">
+                <div class="lib-row lib-header">
+                    <h2>{{movie.name}}</h2>
+                    <div class="lib-header-seperator"></div>
+                </div>
+                <div class="lib-row lib-desc">
+                    Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
