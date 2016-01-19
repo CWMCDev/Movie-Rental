@@ -29,15 +29,27 @@ app.controller('mainController', ['$rootScope', '$scope', function($rootScope, $
 }]);
 
 app.controller('actorsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
-	$http({
-		method: 'GET',
-		url: '/api/actors/random/5'
-	}).then(function successCallback(response) {
-		$scope.actors = response.data;
-	}, function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-	});
+	if (typeof $routeParams.movieId != 'undefined'){
+		$http({
+			method: 'GET',
+			url: '/api/actors/movie/'+$routeParams.movieId
+		}).then(function successCallback(response) {
+			$scope.actors = response.data;
+		}, function errorCallback(response) {
+	    // called asynchronously if an error occurs
+	    // or server returns response with an error status.
+		});
+	} else {
+		$http({
+			method: 'GET',
+			url: '/api/actors/random/5'
+		}).then(function successCallback(response) {
+			$scope.actors = response.data;
+		}, function errorCallback(response) {
+	    // called asynchronously if an error occurs
+	    // or server returns response with an error status.
+		});
+	}
 }]);
 
 app.controller('actorController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -46,6 +58,7 @@ app.controller('actorController', ['$scope', '$http', '$routeParams', function($
 		url: '/api/actor/'+$routeParams.actorId
 	}).then(function successCallback(response) {
 		$scope.actor = response.data;
+		
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.

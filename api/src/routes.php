@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . '/../classes/database/databasecomm.class.php';
+require __DIR__ . '/../classes/objectEditor.php';
+
 // Routes
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
@@ -26,7 +28,7 @@ function createResponse($data=array()) {
 
 $app->get('/actor/{actorId}', function ($request, $response, $args) {
 	$actorData = getActor($args['actorId']);
-	$actor = mysqli_fetch_array($actorData);
+	$actor = editActor(mysqli_fetch_array($actorData));
    createResponse($actor);
 });
 
@@ -35,7 +37,7 @@ $app->get('/actor/search/{actorName}', function ($request, $response, $args) {
 	$actors = array();
 
 	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, $actor);
+    	array_push($actors, editActor($actor));
     }
 
    createResponse($actors);
@@ -46,7 +48,7 @@ $app->get('/actors/random/{amount}', function ($request, $response, $args) {
 	$actors = array();
 
 	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, $actor);
+    	array_push($actors, editActor($actor));
     }   
 
     createResponse($actors);
@@ -57,7 +59,18 @@ $app->get('/actors/', function ($request, $response, $args) {
 	$actors = array();
 
 	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, $actor);
+    	array_push($actors, editActor($actor));
+    }
+
+   createResponse($actors);
+});
+
+$app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
+	$actorData = getActorsfromMovie($args['movieId']);
+	$actors = array();
+
+	while($actor = mysqli_fetch_array($actorData)){
+    	array_push($actors, editActor($actor));
     }
 
    createResponse($actors);

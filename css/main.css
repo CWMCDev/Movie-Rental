@@ -1,17 +1,13 @@
 .lib-panel {
-    margin-bottom: 20Px;
+    margin: 20px;
+    padding: 0;
+    background-color: #FFFFFF;
 }
 .lib-panel img {
     width: 100%;
     background-color: transparent;
+    padding: 15px 0 15px 0;
 }
-
-.lib-panel .row,
-.lib-panel .col-md-6 {
-    padding: 0;
-    background-color: #FFFFFF;
-}
-
 
 .lib-panel .lib-row {
     padding: 0 20px 0 20px;
@@ -20,7 +16,15 @@
 .lib-panel .lib-row.lib-header {
     background-color: #FFFFFF;
     font-size: 20px;
-    padding: 10px 20px 0 20px;
+    padding: 0px;
+}
+
+.lib-panel .lib-row.lib-header h2 {
+    margin: 15px 0px 0px 0px;
+}
+
+.lib-panel .lib-row.lib-header h5 {
+    margin: 0;
 }
 
 .lib-panel .lib-row.lib-header .lib-header-seperator {
