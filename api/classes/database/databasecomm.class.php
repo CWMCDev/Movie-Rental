@@ -72,7 +72,7 @@ function getMoviesFromActor($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 	
-	$db->doSQL("SELECT * FROM `Films` WHERE film_id IN (SELECT film_id FROM `Plays_In` WHERE actor_id='".$id."');");
+	$db->doSQL("SELECT * FROM `Movies` WHERE movie_id IN (SELECT movie_id FROM `Plays_In` WHERE actor_id='".$id."');");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
@@ -93,7 +93,7 @@ function getMovie($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 
-	$db->doSQL("SELECT * FROM `Films` WHERE film_id='".$id."'");
+	$db->doSQL("SELECT * FROM `Movies` WHERE movie_id='".$id."'");
 	$db->closeConnection();
 	$result = $db->getRecord();
 
@@ -108,7 +108,7 @@ function getMovieNameLike($like){
 	$db = new Database();
 	$like = mysqli_real_escape_string($db->link, $like);
 
-	$db->doSQL("SELECT * FROM Films WHERE name LIKE '%".$like."%'");
+	$db->doSQL("SELECT * FROM Movies WHERE name LIKE '%".$like."%'");
 	$db->closeConnection();
 	$result = $db->getRecord();
 
@@ -123,7 +123,7 @@ function getRandomMovies($limit = 10){
 	$db = new Database();
 	$limit = mysqli_real_escape_string($db->link, $limit);
 
-	$db->doSQL("SELECT * FROM Films ORDER BY RAND() LIMIT ".$limit);
+	$db->doSQL("SELECT * FROM Movies ORDER BY RAND() LIMIT ".$limit);
 	$db->closeConnection();
 	$result = $db->getRecord();
 
@@ -136,7 +136,7 @@ function getRandomMovies($limit = 10){
 
 function getAllMovies(){
 	$db = new Database();
-	$db->doSQL("SELECT * FROM `Films`;");
+	$db->doSQL("SELECT * FROM `Movies`;");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
@@ -151,7 +151,7 @@ function getActorsFromMovie($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 	
-	$db->doSQL("SELECT * FROM `Actors` WHERE actor_id IN (SELECT actor_id FROM `Plays_In` WHERE film_id='".$id."');");
+	$db->doSQL("SELECT * FROM `Actors` WHERE actor_id IN (SELECT actor_id FROM `Plays_In` WHERE movie_id='".$id."');");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
@@ -167,7 +167,7 @@ function getCategoriesFromMovie($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 	
-	$db->doSQL("SELECT * FROM `Categories` WHERE film_id='".$id."';");
+	$db->doSQL("SELECT * FROM `Categories` WHERE movie_id='".$id."';");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	
@@ -186,7 +186,6 @@ function getCategoriesFromMovie($id){
 
 function getAllCategories(){
     $db = new Database();
-	$id = mysqli_real_escape_string($db->link, $id);
 	
 	$db->doSQL("SHOW COLUMNS FROM Categories WHERE Field = 'category'");
 	$db->closeConnection();
@@ -200,6 +199,21 @@ function getAllCategories(){
     return $enum;
 }
 
+function getMoviesFromCategory($category){
+	$db = new Database();
+	$category = mysqli_real_escape_string($db->link, $category);
+	
+	$db->doSQL("SELECT * FROM `Movies` WHERE movie_id IN (SELECT movie_id FROM `Categories` WHERE category='".$category."');");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		error_log('Nothing');
+		return false;
+	} else {
+		error_log('Something ' . mysqli_num_rows($result));
+		return $result;
+	}
+}
 
 
 

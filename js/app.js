@@ -17,7 +17,11 @@ app.config(function($routeProvider, $locationProvider) {
 	.when('/movie/:movieId', {
 		templateUrl: 'templates/movie.html',
 		controller: 'movieController'
-	});
+	})
+	.when('/category/:category', {
+		templateUrl: 'templates/categorie.html',
+		controller: 'categorieController'
+	})
 });
 
 app.controller('mainController', ['$rootScope', '$scope', function($rootScope, $scope){
@@ -54,7 +58,6 @@ app.controller('moviesController', ['$scope', '$http', '$routeParams', function(
 			method: 'GET',
 			url: '/api/movies/actor/'+$routeParams.actorId
 		}).then(function successCallback(response) {
-			console.log(response)
 			$scope.movies = response.data;
 		}, function errorCallback(response) {
 	    // called asynchronously if an error occurs
@@ -74,7 +77,15 @@ app.controller('moviesController', ['$scope', '$http', '$routeParams', function(
 }]);
 
 app.controller('movieController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
-
+	$http({
+		method: 'GET',
+		url: '/api/movie/'+$routeParams.movieId
+	}).then(function successCallback(response) {
+		$scope.movie = response.data;
+	}, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+	});
 }]);
 
 app.controller('categoriesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -84,6 +95,22 @@ app.controller('categoriesController', ['$scope', '$http', '$routeParams', funct
 	}).then(function successCallback(response) {
 		$scope.categories = response.data;
 	}, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+	});
+}]);
+
+app.controller('categorieController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+	$http({
+		method: 'GET',
+		url: '/api/category/'+$routeParams.category
+	}).then(function successCallback(response) {
+		if(typeof response.data.error === 'undefined'){
+			$scope.movies = response.data;
+			console.log(response.data);
+		}else{
+			$scope.error = response.data.error;
+		}	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
 	});

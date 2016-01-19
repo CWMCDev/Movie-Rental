@@ -127,6 +127,18 @@ $app->get('/movies/actor/{actorId}', function ($request, $response, $args) {
 //	CATEGORIES 		//
 //					//
 //////////////////////
+$app->get('/category/{category}', function ($request, $response, $args) {
+	if($categoryData = getMoviesFromCategory($args['category'])){
+		$movies = array();
+
+		while($movie = mysqli_fetch_array($categoryData)){
+	    	array_push($movies, $movie);
+	    }
+		createResponse($movies);
+	} else {
+		createResponse(array('error' => 'No movies found for the '.$args['category'].' category.'));
+	}
+});
 
 $app->get('/categories/', function ($request, $response, $args) {
 	$categories = getAllCategories();
