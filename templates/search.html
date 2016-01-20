@@ -1,0 +1,67 @@
+<div class="container">
+	{{Search.data}}
+	<div class="alert alert-danger" role="alert" ng-show="movieError">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span>
+		{{movieError}}
+	</div>
+	<div class="panel panel-default" ng-show="movies">
+		<div class="panel-heading">
+			<h3 class="panel-title">Movies</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-4 lib-item" data-category="view" ng-repeat="movie in movies">
+				<div class="lib-panel">
+					<div class="row box-shadow">
+						<div class="col-md-6">
+							<img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
+						</div>
+						<div class="col-md-6">
+							<div class="lib-row lib-header">
+								<a href="#/movie/{{movie.movie_id}}">
+									<h2>{{movie.name}}</h2>
+								</a>
+								<div class="lib-header-seperator"></div>
+							</div>
+							<div class="lib-row lib-desc">
+								Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="alert alert-danger" role="alert" ng-show="actorError">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span>
+		{{actorError}}
+	</div>
+	<div class="panel panel-default" ng-show="actors">
+		<div class="panel-heading">
+			<h3 class="panel-title">Actors</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 lib-item" data-category="view" ng-repeat="actor in actors">
+				<a href="#/actor/{{actor.actor_id}}" style="text-decoration:none; color:black">
+					<div class="lib-panel">
+						<div class="row box-shadow">
+							<div class="col-xs-12">
+								<img class="lib-img-show" src="/actor/img/{{actor.actor_id}}.jpg">
+							</div>
+							<div class="col-xs-12">
+								<div class="lib-row lib-header">
+									<h5>{{actor.firstname}} {{actor.lastname}}</h5>
+									<div class="lib-header-seperator"></div>
+								</div>
+								<div class="lib-row lib-desc">
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

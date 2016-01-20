@@ -1,4 +1,11 @@
-<div class="container">
+<div class="container" ng-show="error">
+	<div class="alert alert-danger" role="alert">
+	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    <span class="sr-only">Error:</span>
+	    {{error}}
+	</div>
+</div>
+<div class="container" ng-show="actors">
 	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 lib-item" data-category="view" ng-repeat="actor in actors">
 		<a href="#/actor/{{actor.actor_id}}" style="text-decoration:none; color:black">
 		    <div class="lib-panel">

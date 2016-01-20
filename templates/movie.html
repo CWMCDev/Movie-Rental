@@ -1,3 +1,11 @@
+<div class="container" ng-show="error">
+	<div class="alert alert-danger" role="alert">
+	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    <span class="sr-only">Error:</span>
+	    {{error}}
+	</div>
+</div>
+<div class="col-xs-12" ng-show="movie">
 <div class="col-md-3 col-sm-4 lib-item" data-category="view">
     <div class="lib-panel">
         <div class="row box-shadow">
@@ -40,4 +48,5 @@
 		    </div>
 		</a>
 	</div>
+</div>
 </div>

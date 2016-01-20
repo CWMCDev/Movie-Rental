@@ -16,8 +16,8 @@ function createResponse($data=array()) {
 		echo json_encode($data, JSON_PRETTY_PRINT);
 		if(isset($_GET['callback'])) {
 			echo ')';
-		}
-	}
+}
+}
 }
 
 //////////////////////
@@ -27,53 +27,68 @@ function createResponse($data=array()) {
 //////////////////////
 
 $app->get('/actor/{actorId}', function ($request, $response, $args) {
-	$actorData = getActor($args['actorId']);
-	$actor = editActor(mysqli_fetch_array($actorData));
-   createResponse($actor);
+	if($actorData = getActor($args['actorId'])){
+		$actor = editActor(mysqli_fetch_array($actorData));
+		createResponse($actor);
+	} else {
+		createResponse(array('error' => 'Could not load actor.'));
+	}
 });
 
 $app->get('/actor/search/{actorName}', function ($request, $response, $args) {
-	$actorData = getActorNameLike($args['actorName']);
-	$actors = array();
+	if($actorData = getActorNameLike($args['actorName'])){
+		$actors = array();
 
-	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, editActor($actor));
-    }
+		while($actor = mysqli_fetch_array($actorData)){
+			array_push($actors, editActor($actor));
+		}
 
-   createResponse($actors);
+		createResponse($actors);
+	} else {
+		createResponse(array('error' => 'No actors found for the '.$args['actorName'].' search term.'));
+	}
 });
 
 $app->get('/actors/random/{amount}', function ($request, $response, $args) {
-	$actorData = getRandomActors($args['amount']);
-	$actors = array();
+	if($actorData = getRandomActors($args['amount'])){
+		$actors = array();
 
-	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, editActor($actor));
-    }   
+		while($actor = mysqli_fetch_array($actorData)){
+			array_push($actors, editActor($actor));
+		}   
 
-    createResponse($actors);
+		createResponse($actors);
+	} else {
+		createResponse(array('error' => 'No actors found.'));
+	}
 });
 
 $app->get('/actors/', function ($request, $response, $args) {
-	$actorData = getAllActors();
-	$actors = array();
+	if($actorData = getAllActors()){
+		$actors = array();
 
-	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, editActor($actor));
-    }
+		while($actor = mysqli_fetch_array($actorData)){
+			array_push($actors, editActor($actor));
+		}
 
-   createResponse($actors);
+		createResponse($actors);
+	} else {
+		createResponse(array('error' => 'No actors found.'));
+	}
 });
 
 $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
-	$actorData = getActorsfromMovie($args['movieId']);
-	$actors = array();
+	if($actorData = getActorsfromMovie($args['movieId'])){
+		$actors = array();
 
-	while($actor = mysqli_fetch_array($actorData)){
-    	array_push($actors, editActor($actor));
-    }
+		while($actor = mysqli_fetch_array($actorData)){
+			array_push($actors, editActor($actor));
+		}
 
-   createResponse($actors);
+		createResponse($actors);
+	} else {
+		createResponse(array('error' => 'No actors found for this movie.'));
+	}
 });
 
 //////////////////////
@@ -85,54 +100,66 @@ $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
 $app->get('/movie/{movieId}', function ($request, $response, $args) {
 	if($movieData = getMovie($args['movieId'])){
 		$movie = mysqli_fetch_array($movieData);
-   		createResponse($movie);
+		createResponse($movie);
 	} else {
-		//error
+		createResponse(array('error' => 'Could not load movie.'));
 	}
 });
 
 $app->get('/movie/search/{movieName}', function ($request, $response, $args) {
-	$movieData = getmovieNameLike($args['movieName']);
-	$movies = array();
+	if($movieData = getmovieNameLike($args['movieName'])){
+		$movies = array();
 
-	while($movie = mysqli_fetch_array($movieData)){
-    	array_push($movies, $movie);
-    }
+		while($movie = mysqli_fetch_array($movieData)){
+			array_push($movies, $movie);
+		}
 
-   createResponse($movies);
+		createResponse($movies);
+	} else {
+		createResponse(array('error' => 'No movies found for the '.$args['movieName'].' search term.'));
+	}
 });
 
 $app->get('/movies/random/{amount}', function ($request, $response, $args) {
-	$movieData = getRandommovies($args['amount']);
-	$movies = array();
+	if($movieData = getRandommovies($args['amount'])){
+		$movies = array();
 
-	while($movie = mysqli_fetch_array($movieData)){
-    	array_push($movies, $movie);
-    }   
+		while($movie = mysqli_fetch_array($movieData)){
+			array_push($movies, $movie);
+		}   
 
-    createResponse($movies);
+		createResponse($movies);
+	} else {
+		createResponse(array('error' => 'No movies found.'));
+	}
 });
 
 $app->get('/movies/', function ($request, $response, $args) {
-	$movieData = getAllmovies();
-	$movies = array();
+	if($movieData = getAllmovies()){
+		$movies = array();
 
-	while($movie = mysqli_fetch_array($movieData)){
-    	array_push($movies, $movie);
-    }
+		while($movie = mysqli_fetch_array($movieData)){
+			array_push($movies, $movie);
+		}
 
-   createResponse($movies);
+		createResponse($movies);
+	} else {
+		createResponse(array('error' => 'No movies found.'));
+	}
 });
 
 $app->get('/movies/actor/{actorId}', function ($request, $response, $args) {
-	$movieData = getMoviesFromActor($args['actorId']);
-	$movies = array();
+	if($movieData = getMoviesFromActor($args['actorId'])){
+		$movies = array();
 
-	while($movie = mysqli_fetch_array($movieData)){
-    	array_push($movies, $movie);
-    }
+		while($movie = mysqli_fetch_array($movieData)){
+			array_push($movies, $movie);
+		}
 
-   createResponse($movies);
+		createResponse($movies);
+	} else {
+		createResponse(array('error' => 'No movies found for this actor.'));
+	}
 });
 
 //////////////////////
@@ -145,8 +172,8 @@ $app->get('/category/{category}', function ($request, $response, $args) {
 		$movies = array();
 
 		while($movie = mysqli_fetch_array($categoryData)){
-	    	array_push($movies, $movie);
-	    }
+			array_push($movies, $movie);
+		}
 		createResponse($movies);
 	} else {
 		createResponse(array('error' => 'No movies found for the '.$args['category'].' category.'));
@@ -156,5 +183,5 @@ $app->get('/category/{category}', function ($request, $response, $args) {
 $app->get('/categories/', function ($request, $response, $args) {
 	$categories = getAllCategories();
 
-   createResponse($categories);
+	createResponse($categories);
 });
