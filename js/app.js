@@ -29,7 +29,7 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.controller('mainController', ['$rootScope', '$scope', function($rootScope, $scope){
-	$rootScope.username = "milo";
+	$rootScope.search = {data: ''};
 }]);
 
 app.controller('actorsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -160,16 +160,11 @@ app.controller('categorieController', ['$scope', '$http', '$routeParams', functi
 	});
 }]);
 
-app.factory('Search', function () {
-    return { data: 'Bla' };
-});
+app.controller('searchFormController', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams){
 
-app.controller('searchFormContoller', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams, Search){
-	$scope.Search = Search;
 }]);
 
-app.controller('searchController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams, Search){
-	$scope.Search = Search;
+app.controller('searchController', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams){
 
 	$http({
 		method: 'GET',
@@ -177,7 +172,6 @@ app.controller('searchController', ['$scope', '$http', '$routeParams', function(
 	}).then(function successCallback(response) {
 		if(typeof response.data.error === 'undefined'){
 			$scope.movies = response.data;
-			console.log(response.data);
 		}else{
 			$scope.movieError = response.data.error;
 		}		
@@ -185,13 +179,13 @@ app.controller('searchController', ['$scope', '$http', '$routeParams', function(
     // called asynchronously if an error occurs
     // or server returns response with an error status.
 	});
-		$http({
+	
+	$http({
 		method: 'GET',
 		url: '/api/actors/'
 	}).then(function successCallback(response) {
 		if(typeof response.data.error === 'undefined'){
 			$scope.actors = response.data;
-			console.log(response.data);
 		}else{
 			$scope.actorError = response.data.error;
 		}		
