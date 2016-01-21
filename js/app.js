@@ -28,9 +28,30 @@ app.config(function($routeProvider, $locationProvider) {
 	})
 });
 
-app.controller('mainController', ['$rootScope', '$scope', function($rootScope, $scope){
+app.controller('mainController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+	$http({
+		method: 'GET',
+		url: '/api/customers/milocesar1@gmail.com'
+	}).then(function successCallback(response) {
+		if(typeof response.data.error === 'undefined'){
+			console.log(response.data[0]);
+			$rootScope.user = response.data[0];
+		}else{
+			$scope.error = response.data.error;
+		}		
+	}, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+});
+
 	$rootScope.search = {data: ''};
 }]);
+
+//////////////////////
+//					//
+//		Movies 		//
+//					//
+//////////////////////
 
 app.controller('actorsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
 	if (typeof $routeParams.movieId != 'undefined'){
@@ -195,6 +216,11 @@ app.controller('searchController', ['$rootScope', '$scope', '$http', '$routePara
 });
 }]);
 
+//////////////////////
+//					//
+//	Customers 		//
+//					//
+//////////////////////
 
 
 
@@ -204,8 +230,11 @@ app.controller('searchController', ['$rootScope', '$scope', '$http', '$routePara
 
 
 
-
-
+//////////////////////
+//					//
+//		Misc 		//
+//					//
+//////////////////////
 
 app.filter('cut', function () {
 	return function (value, wordwise, max, tail) {

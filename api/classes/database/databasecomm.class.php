@@ -207,17 +207,31 @@ function getMoviesFromCategory($category){
 	$db->closeConnection();
 	$result = $db->getRecord();
 	if(mysqli_num_rows($result) == 0){
-		error_log('Nothing');
 		return false;
 	} else {
-		error_log('Something ' . mysqli_num_rows($result));
 		return $result;
 	}
 }
 
+//////////////////////
+//					//
+//	Customers 		//
+//					//
+//////////////////////
 
-
-
+function getUsersFromEmail($email){
+	$db = new Database();
+	$email = mysqli_real_escape_string($db->link, $email);
+	
+	$db->doSQL("SELECT * FROM `Customers` WHERE email='".$email."';");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
 
 
 ?>

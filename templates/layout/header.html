@@ -34,7 +34,8 @@
           </form>
         </div>
       </li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      <li ng-hide="user"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout {{user.first_name}}</a></li>
+      <li ng-show="user"><a data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </div>

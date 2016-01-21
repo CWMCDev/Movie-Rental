@@ -185,3 +185,22 @@ $app->get('/categories/', function ($request, $response, $args) {
 
 	createResponse($categories);
 });
+
+//////////////////////
+//					//
+//	Customers 		//
+//					//
+//////////////////////
+
+$app->get('/customers/{email}', function ($request, $response, $args) {
+	if($customerData = getUsersFromEmail($args['email'])){
+		$users = array();
+
+		while($user = mysqli_fetch_array($customerData)){
+			array_push($users, $user);
+		}
+		createResponse($users);
+	} else {
+		createResponse(array('error' => 'No users found with that email adress.'));
+	}
+});
