@@ -192,7 +192,7 @@ $app->get('/categories/', function ($request, $response, $args) {
 //					//
 //////////////////////
 
-$app->get('/customers/{email}', function ($request, $response, $args) {
+$app->get('/customer/{email}', function ($request, $response, $args) {
 	if($customerData = getUsersFromEmail($args['email'])){
 		$users = array();
 

@@ -10,6 +10,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/actor.html',
 		controller: 'actorController'
 	})
+
 	.when('/movies', {
 		templateUrl: 'templates/movies.html',
 		controller: 'moviesController'
@@ -18,31 +19,24 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/movie.html',
 		controller: 'movieController'
 	})
+
 	.when('/category/:category', {
 		templateUrl: 'templates/categorie.html',
 		controller: 'categorieController'
 	})
+
 	.when('/search/', {
 		templateUrl: 'templates/search.html',
 		controller: 'searchController'
 	})
+
+	.when('/profile/', {
+		templateUrl: 'templates/profile.html',
+		controller: 'profileController'
+	})
 });
 
 app.controller('mainController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
-	$http({
-		method: 'GET',
-		url: '/api/customers/milocesar1@gmail.com'
-	}).then(function successCallback(response) {
-		if(typeof response.data.error === 'undefined'){
-			console.log(response.data[0]);
-			$rootScope.user = response.data[0];
-		}else{
-			$scope.error = response.data.error;
-		}		
-	}, function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-});
 
 	$rootScope.search = {data: ''};
 }]);
@@ -222,13 +216,41 @@ app.controller('searchController', ['$rootScope', '$scope', '$http', '$routePara
 //					//
 //////////////////////
 
+app.controller('loginController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+	$scope.login = function(email){
+		$http({
+			method: 'GET',
+			url: '/api/customer/' + email
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				$rootScope.user = response.data[0];
+			}else{
+				$scope.error = response.data.error;
+			}	
+		}, function errorCallback(response) {
+    		// called asynchronously if an error occurs
+    		// or server returns response with an error status.
+		});
+	}
+}]);
 
-
-
-
-
-
-
+app.controller('profileController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+	$scope.login = function(email){
+		$http({
+			method: 'GET',
+			url: '/api/customer/' + email
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				$rootScope.user = response.data[0];
+			}else{
+				$scope.error = response.data.error;
+			}	
+		}, function errorCallback(response) {
+    		// called asynchronously if an error occurs
+    		// or server returns response with an error status.
+		});
+	}
+}]);
 
 //////////////////////
 //					//

@@ -1,6 +1,6 @@
 <!-- Source: http://bootsnipp.com/snippets/featured/squarespace-like-modal -->
 <!-- line modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" ng-controller="loginController">
   <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -13,21 +13,20 @@
 			<form>
               <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="user.email">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" placeholder="Password" disabled>
                 <p class="help-block">Passwords might not be supported right now.</p>
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
             </form>
 
 		</div>
 		<div class="modal-footer">
 			<div class="btn-group btn-group-justified" role="group">
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-primary" role="button" data-dismiss="modal">Login</button>
+					<button type="button" class="btn btn-primary" role="button" data-dismiss="modal" ng-click="login(user.email)">Login</button>
 				</div>
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default" role="button" data-dismiss="modal">Signup</button>
