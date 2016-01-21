@@ -46,7 +46,7 @@ app.controller('actorsController', ['$scope', '$http', '$routeParams', function(
 		}, function errorCallback(response) {
 	    	// called asynchronously if an error occurs
 	    	// or server returns response with an error status.
-		});
+	    });
 	} else {
 		$http({
 			method: 'GET',
@@ -60,7 +60,7 @@ app.controller('actorsController', ['$scope', '$http', '$routeParams', function(
 		}, function errorCallback(response) {
 	   		// called asynchronously if an error occurs
 	    	// or server returns response with an error status.
-		});
+	    });
 	}
 }]);
 
@@ -77,7 +77,7 @@ app.controller('actorController', ['$scope', '$http', '$routeParams', function($
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 }]);
 
 app.controller('moviesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -86,29 +86,29 @@ app.controller('moviesController', ['$scope', '$http', '$routeParams', function(
 			method: 'GET',
 			url: '/api/movies/actor/'+$routeParams.actorId
 		}).then(function successCallback(response) {
-		if(typeof response.data.error === 'undefined'){
-			$scope.movies = response.data;
-		}else{
-			$scope.error = response.data.error;
-		}		
-	}, function errorCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				$scope.movies = response.data;
+			}else{
+				$scope.error = response.data.error;
+			}		
+		}, function errorCallback(response) {
 	    // called asynchronously if an error occurs
 	    // or server returns response with an error status.
-		});
+	});
 	} else {
 		$http({
 			method: 'GET',
 			url: '/api/movies/random/3'
 		}).then(function successCallback(response) {
-		if(typeof response.data.error === 'undefined'){
-			$scope.movies = response.data;
-		}else{
-			$scope.error = response.data.error;
-		}		
-	}, function errorCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				$scope.movies = response.data;
+			}else{
+				$scope.error = response.data.error;
+			}		
+		}, function errorCallback(response) {
 	    // called asynchronously if an error occurs
 	    // or server returns response with an error status.
-		});
+	});
 	}
 }]);
 
@@ -125,7 +125,7 @@ app.controller('movieController', ['$scope', '$http', '$routeParams', function($
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 }]);
 
 app.controller('categoriesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -141,7 +141,7 @@ app.controller('categoriesController', ['$scope', '$http', '$routeParams', funct
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 }]);
 
 app.controller('categorieController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -157,7 +157,7 @@ app.controller('categorieController', ['$scope', '$http', '$routeParams', functi
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 }]);
 
 app.controller('searchFormController', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams){
@@ -178,7 +178,7 @@ app.controller('searchController', ['$rootScope', '$scope', '$http', '$routePara
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 	
 	$http({
 		method: 'GET',
@@ -192,5 +192,37 @@ app.controller('searchController', ['$rootScope', '$scope', '$http', '$routePara
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-	});
+});
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.filter('cut', function () {
+	return function (value, wordwise, max, tail) {
+		if (!value) return '';
+
+		max = parseInt(max, 10);
+		if (!max) return value;
+		if (value.length <= max) return value;
+
+		value = value.substr(0, max);
+		if (wordwise) {
+			var lastspace = value.lastIndexOf(' ');
+			if (lastspace != -1) {
+				value = value.substr(0, lastspace);
+			}
+		}
+
+		return value + (tail || ' …');
+	};
+});
