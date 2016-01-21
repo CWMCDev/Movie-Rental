@@ -10,24 +10,24 @@
 		</div>
 		<div class="panel-body">
 			<div class="col-md-4 col-sm-6 lib-item" data-category="view" ng-repeat="movie in filteredMovies = (movies | filter:search.data | limitTo:6)">
-				<div class="lib-panel">
-					<div class="row box-shadow">
-						<div class="col-md-6">
-							<img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
-						</div>
-						<div class="col-md-6">
-							<div class="lib-row lib-header">
-								<a href="#/movie/{{movie.movie_id}}">
-									<h2>{{movie.name}}</h2>
-								</a>
-								<div class="lib-header-seperator"></div>
+				<a href="#/movie/{{movie.movie_id}}" style="text-decoration:none; color:black">
+					<div class="lib-panel">
+						<div class="row box-shadow">
+							<div class="col-md-6">
+								<img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
 							</div>
-							<div class="lib-row lib-desc">
-								Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+							<div class="col-md-6">
+								<div class="lib-row lib-header">
+									<h2>{{movie.name}}</h2>
+									<div class="lib-header-seperator"></div>
+								</div>
+								<div class="lib-row lib-desc">
+									Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 			<div class="alert alert-danger" role="alert" ng-hide="filteredMovies.length">
 				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
