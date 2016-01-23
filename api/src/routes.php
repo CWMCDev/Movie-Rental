@@ -204,3 +204,17 @@ $app->get('/customer/{email}', function ($request, $response, $args) {
 		createResponse(array('error' => 'No users found with that email adress.'));
 	}
 });
+
+//////////////////////
+//					//
+//		Misc 		//
+//					//
+//////////////////////
+
+$app->get('/version/', function ($request, $response, $args) {
+	if($version = exec("git log --pretty=format:'%h' -n 1")){
+		createResponse(array('git_version' => $version));
+	} else {
+		createResponse(array('error' => 'No users found with that email adress.'));
+	}
+});

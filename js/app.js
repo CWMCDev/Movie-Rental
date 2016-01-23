@@ -37,6 +37,7 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.controller('mainController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+	$rootScope.currentDate = new Date();
 
 	$rootScope.search = {data: ''};
 }]);

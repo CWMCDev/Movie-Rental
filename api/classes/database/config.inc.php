@@ -2,9 +2,9 @@
 //Location of database
 $location 	=	'localhost';
 //Username
-$login 		=	'localAdmin';
+$login 		=	'movie_Admin';
 //Password
-$password	=	'abc123';
+$password	=	'JpyLZQTuLvMRsdyHraxmSsKPtY2jzYJMTi8HgTsf2bD6pLFB';
 //Database
 $dbName		=	'Movie_Rental';
 ?>
