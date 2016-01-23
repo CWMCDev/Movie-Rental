@@ -1,4 +1,4 @@
-var app = angular.module('movieRentalApp',['ngRoute']);
+var app = angular.module('movieRentalApp',['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
@@ -141,12 +141,23 @@ app.controller('moviesController', ['$scope', '$http', '$routeParams', function(
 }]);
 
 app.controller('movieController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+	$scope.rating = {
+		rate: null,
+		isReadonly: false,
+		max: 5
+	};
+
+	$scope.hoveringOver = function(value) {
+		$scope.rating.overStar = value;
+	};
+
 	$http({
 		method: 'GET',
 		url: '/api/movie/'+$routeParams.movieId
 	}).then(function successCallback(response) {
 		if(typeof response.data.error === 'undefined'){
 			$scope.movie = response.data;
+			$scope.rating.rate = response.data.rating;
 		}else{
 			$scope.error = response.data.error;
 		}		

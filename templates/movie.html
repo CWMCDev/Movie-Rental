@@ -21,7 +21,10 @@
                 	<p>{{movie.description}}
                     <table class="table table-striped">
                         <tr><th>Release date</th><td>{{movie.release_date}}</td></tr>
-                        <tr><th>rating</th><td>{{movie.rating}}</td></tr>
+                        <tr><th>rating</th><td>
+                        	<uib-rating ng-model="rating.rate" max="rating.max" readonly="rating.isReadonly" on-hover="hoveringOver(value)" on-leave="rating.overStar = null"></uib-rating>
+    						</td>
+    					</tr>
                     </table>
                 </div>
             </div>
