@@ -38,7 +38,19 @@ app.config(function($routeProvider, $locationProvider) {
 
 app.controller('mainController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
 	$rootScope.currentDate = new Date();
-
+	$http({
+			method: 'GET',
+			url: '/api/version/'
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				$rootScope.version = response.data.git_version;
+			}else{
+				$scope.error = response.data.error;
+			}		
+		}, function errorCallback(response) {
+	    	// called asynchronously if an error occurs
+	    	// or server returns response with an error status.
+	    });	
 	$rootScope.search = {data: ''};
 }]);
 

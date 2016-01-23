@@ -215,6 +215,6 @@ $app->get('/version/', function ($request, $response, $args) {
 	if($version = exec("git log --pretty=format:'%h' -n 1")){
 		createResponse(array('git_version' => $version));
 	} else {
-		createResponse(array('error' => 'No users found with that email adress.'));
+		createResponse(array('error' => 'Could not fetch version.'));
 	}
 });
