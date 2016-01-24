@@ -259,21 +259,7 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 }]);
 
 app.controller('profileController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
-	$scope.login = function(email){
-		$http({
-			method: 'GET',
-			url: '/api/customer/' + email
-		}).then(function successCallback(response) {
-			if(typeof response.data.error === 'undefined'){
-				$rootScope.user = response.data[0];
-			}else{
-				$scope.error = response.data.error;
-			}	
-		}, function errorCallback(response) {
-    		// called asynchronously if an error occurs
-    		// or server returns response with an error status.
-		});
-	}
+
 }]);
 
 //////////////////////
