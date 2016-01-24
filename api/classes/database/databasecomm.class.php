@@ -268,7 +268,9 @@ function getRentalsFromUser($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 	
-	$db->doSQL("SELECT * FROM Rentals INNER JOIN Invoices ON Rentals.rental_id = Invoices.rental_id WHERE customer_id = '".$id."';");
+	$db->doSQL("SELECT Rentals.rental_id, Rentals.movie_id, Rentals.customer_id, Rentals.loan_date, Invoices.amount, Invoices.due_date, Invoices.payed, Movies.movie_id, Movies.name FROM Rentals 
+	INNER JOIN Invoices ON Rentals.rental_id = Invoices.rental_id 
+	INNER JOIN Movies ON Rentals.movie_id = Movies.movie_id WHERE customer_id = '".$id."';");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	if(mysqli_num_rows($result) == 0){

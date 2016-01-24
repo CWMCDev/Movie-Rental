@@ -38,11 +38,12 @@ function editCustomer($customerData){
 function editRental($rentalData){
 	$rental = array();
 	$rental['id'] = $rentalData['rental_id'];
-	$rental['movieID'] = $rentalData['movie_id'];
+	$rental['movie']['id'] = $rentalData['movie_id'];
+	$rental['movie']['title'] = $rentalData['name'];
 	$rental['loanDate'] = $rentalData['loan_date'];
 	$rental['invoice']['dueDate'] = $rentalData['due_date'];
 	$rental['invoice']['amount'] = $rentalData['amount'];
-	$rental['invoice']['payed'] = $rentalData['payed'];
+	$rental['invoice']['payed'] = (bool) $rentalData['payed'];
 	return $rental;
 }
 ?>

@@ -290,8 +290,17 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 		url: '/api/customer/rentals/' + $rootScope.storage.user.customerID
 	}).then(function successCallback(response) {
 		if(typeof response.data.error === 'undefined'){
-			$scope.rentals = response.data;
-			console.log(response);
+			var rentals = [];
+			for (index = 0; index < response.data.length; ++index) {
+    			var rental = response.data[index];
+    			rental.invoice.dueDate = new Date(rental.invoice.dueDate);
+    			rental.loanDate = new Date(rental.loanDate);
+    			rental.isOverdue = $scope.isOverdue(rental.invoice.dueDate, rental.invoice.payed);
+    			console.log(rental.isOverdue);
+    			rentals.push(rental);
+			};
+
+			$scope.rentals = rentals;
 		}else{
 			$scope.rentalError = response.data.error;
 		}		
@@ -299,6 +308,16 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
     // called asynchronously if an error occurs
     // or server returns response with an error status.
 	});
+
+	$scope.isOverdue = function(date, payed){
+		if(payed){
+			return false
+		}
+		console.log(date);
+		console.log($rootScope.currentDate);
+		console.log(date < $rootScope.currentDate);
+		return date < $rootScope.currentDate;
+	}
 }]);
 //////////////////////
 //					//
