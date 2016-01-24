@@ -39,6 +39,10 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller('mainController', ['$rootScope', '$scope', '$localStorage', '$http', function($rootScope, $scope, $localStorage, $http){
 	$rootScope.storage = $localStorage;
 
+	$scope.logout = function(){
+		$rootScope.storage.user = null;
+	}
+
 	$rootScope.currentDate = new Date();
 	$http({
 			method: 'GET',
@@ -269,7 +273,7 @@ app.controller('signupController', ['$rootScope', '$scope', '$http', function($r
 			data: signupData
 		}).then(function successCallback(response) {
 			if(typeof response.data.error === 'undefined'){
-				$rootScope.storage.user = respone.data;
+				
 			}else{
 				$scope.error = response.data.error;
 			}	
@@ -281,21 +285,21 @@ app.controller('signupController', ['$rootScope', '$scope', '$http', function($r
 }]);
 
 app.controller('profileController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
-	/*$scope.signup = {
-		"firstName": "Ellen",
-		"lastName": "Cesar",
-		"email": "ellen1.cesargmail.com",
-		"phoneNumber": "0613268186",
-		"adress": {
-			"adress": "Opaal 36",
-			"postalCodeNumbers": 6922,
-			"postalCodeLetters": "NZ",
-			"city": "Duiven",
-			"country": "Nederland"
-		}
-	}*/
+	$http({
+		method: 'GET',
+		url: '/api/customer/rentals/' + $rootScope.storage.user.customerID
+	}).then(function successCallback(response) {
+		if(typeof response.data.error === 'undefined'){
+			$scope.rentals = response.data;
+			console.log(response);
+		}else{
+			$scope.rentalError = response.data.error;
+		}		
+	}, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+	});
 }]);
-
 //////////////////////
 //					//
 //		Misc 		//

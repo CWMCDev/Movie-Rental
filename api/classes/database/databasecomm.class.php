@@ -185,18 +185,18 @@ function getCategoriesFromMovie($id){
 //////////////////////
 
 function getAllCategories(){
-    $db = new Database();
+	$db = new Database();
 	
 	$db->doSQL("SHOW COLUMNS FROM Categories WHERE Field = 'category'");
 	$db->closeConnection();
 	$result = $db->getRecord();
 	$data = '';
 	while($results = mysqli_fetch_array($result)){
-    	$data = $results['Type'];
-    }
-    preg_match("/^enum\(\'(.*)\'\)$/", $data, $matches);
-    $enum = explode("','", $matches[1]);
-    return $enum;
+		$data = $results['Type'];
+	}
+	preg_match("/^enum\(\'(.*)\'\)$/", $data, $matches);
+	$enum = explode("','", $matches[1]);
+	return $enum;
 }
 
 function getMoviesFromCategory($category){
@@ -221,7 +221,7 @@ function getMoviesFromCategory($category){
 
 function getUserFromID($id){
 	$db = new Database();
-	$email = mysqli_real_escape_string($db->link, $email);
+	$id = mysqli_real_escape_string($db->link, $id);
 	
 	$db->doSQL("SELECT * FROM `Customers` WHERE customer_id='".$id."';");
 	$db->closeConnection();
@@ -256,6 +256,26 @@ function insertCustomer($customer){
 	$db->closeConnection();
 	
 	return true;
+}
+
+//////////////////////
+//					//
+//	Invoices 		//
+//					//
+//////////////////////
+
+function getRentalsFromUser($id){
+	$db = new Database();
+	$id = mysqli_real_escape_string($db->link, $id);
+	
+	$db->doSQL("SELECT * FROM Rentals INNER JOIN Invoices ON Rentals.rental_id = Invoices.rental_id WHERE customer_id = '".$id."';");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
 }
 
 

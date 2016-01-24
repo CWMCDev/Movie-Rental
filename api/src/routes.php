@@ -198,7 +198,7 @@ $app->get('/customer/email/{email}', function ($request, $response, $args) {
 		$users = array();
 
 		while($user = mysqli_fetch_array($customerData)){
-			array_push($users, $user);
+			array_push($users, editCustomer($user));
 		}
 		createResponse($users);
 	} else {
@@ -207,10 +207,10 @@ $app->get('/customer/email/{email}', function ($request, $response, $args) {
 });
 
 $app->get('/customer/{customer_id}', function ($request, $response, $args) {
-	if($customerData = getUsersFromID($args['customer_id'])){
+	if($customerData = getUserFromID($args['customer_id'])){
 		$user = mysqli_fetch_array($customerData);
 
-		createResponse($user);
+		createResponse(editCustomer($user));
 	} else {
 		createResponse(array('error' => 'No user found with that id.'));
 	}
@@ -250,6 +250,25 @@ $app->post('/customer/', function ($request, $response) {
 		createResponse($errors);
 	} else {
 		createResponse(array('id' => createCustomer($args)));
+	}
+});
+
+//////////////////////
+//					//
+//	Rentals 		//
+//					//
+//////////////////////
+
+$app->get('/customer/rentals/{id}', function ($request, $response, $args) {
+	if($rentalData = getrentalsFromUser($args['id'])){
+		$rentals = array();
+
+		while($rental = mysqli_fetch_array($rentalData)){
+			array_push($rentals, editRental($rental));
+		}
+		createResponse($rentals);
+	} else {
+		createResponse(array('error' => 'No rentals found for that user.'));
 	}
 });
 
