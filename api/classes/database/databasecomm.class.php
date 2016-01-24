@@ -233,5 +233,20 @@ function getUsersFromEmail($email){
 	}
 }
 
+function insertCustomer($customer){
+	$db = new Database();
+
+	$customer = escapeArray($db, $customer);
+
+	$db->doSQL("INSERT INTO `Customers` VALUES ('".$customer['id']."', '".$customer['firstName']."', '".$customer['lastName']."', '".$customer['email']."', '".$customer['phoneNumber']."', '".$customer['adress']['adress']."', '".$customer['adress']['postalCodeNumbers']."', '".$customer['adress']['postalCodeLetters']."', '".$customer['adress']['city']."', '".$customer['adress']['country']."')");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
+
 
 ?>

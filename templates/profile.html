@@ -1,19 +1,19 @@
 <div class="container">
-	<div class="alert alert-danger" role="alert" ng-hide="user">
+	<div class="alert alert-danger" role="alert" ng-hide="storage.user">
 	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 	    <span class="sr-only">Error:</span>
 	    Please <a class="text-danger" data-toggle="modal" data-target="#loginModal" style="text-decoration:underline;">login</a>!
 	</div>
 
-	<div class="col-md-4 col-sm-6" ng-show="user">
+	<div class="col-md-4 col-sm-6" ng-show="storage.user">
 		<table class="table table-striped">
 			<tr>
 				<th>Name:</th>
-				<td>{{user.first_name}} {{user.last_name}}</td>
+				<td>{{storage.user.first_name}} {{storage.user.last_name}}</td>
 			</tr>
 			<tr>
 				<th>Email:</th>
-				<td>{{user.email}}</td>
+				<td>{{storage.user.email}}</td>
 			</tr>
 
 		</table>

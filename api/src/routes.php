@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../classes/database/databasecomm.class.php';
 require __DIR__ . '/../classes/objectEditor.php';
+require __DIR__ . '/../classes/helper.php';
 
 // Routes
 function createResponse($data=array()) {
@@ -202,6 +203,43 @@ $app->get('/customer/{email}', function ($request, $response, $args) {
 		createResponse($users);
 	} else {
 		createResponse(array('error' => 'No users found with that email adress.'));
+	}
+});
+
+$app->post('/customer/', function ($request, $response) {
+	$args = $request->getParsedBody();
+	$errors = array();
+	if(empty($args['firstName'])){
+		array_push($errors, 'No First Name set!');
+	}
+	if(empty($args['lastName'])){
+		array_push($errors, 'No Last Name set!');
+	}
+	if(empty($args['email'])){
+		array_push($errors, 'No email set!');
+	}else if(!isValidEmail($args['email'])){
+		array_push($errors, 'Email Invalid!');
+	}
+	if(empty($args['phoneNumber'])){
+		array_push($errors, 'No phone number set!');
+	}
+	if(empty($args['adress']['adress'])){
+		array_push($errors, 'No adress set!');
+	}
+	if(empty($args['adress']['postalCodeNumbers']) || empty($args['adress']['postalCodeLetters'])){
+		array_push($errors, 'No postal code set!');
+	}
+	if(empty($args['adress']['city'])){
+		array_push($errors, 'No city set!');
+	}
+	if(empty($args['adress']['country'])){
+		array_push($errors, 'No country set!');
+	}
+
+	if(!empty($errors)){
+		createResponse($errors);
+	} else {
+		createResponse(array('id' => createCustomer($args)));
 	}
 });
 

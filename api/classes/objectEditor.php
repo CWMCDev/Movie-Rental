@@ -8,4 +8,16 @@ function editActor($actor){
 	return $actor;
 }
 
+function createCustomer($data){
+	$id = generateID(6);
+
+	$data['id'] = $id;
+
+	if(insertCustomer($data) != false){
+		return $id;
+	} else {
+		return false;
+	}
+}
+
 ?>

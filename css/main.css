@@ -52,9 +52,9 @@
 }
 
 .modal-footer {
-        padding: 0;
-    }
-    
+    padding: 0;
+}
+
 .modal-footer .btn-group button {
     height:40px;
     border-top-left-radius : 0;
@@ -62,13 +62,32 @@
     border: none;
     border-right: 1px solid #ddd;
 }
-    
+
 .modal-footer .btn-group:last-child > button {
     border-right: 0;
 }
 
 .row-margin-bottom {
     margin-bottom: 20px;
+}
+
+.input-merge .col-xs-6 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.input-merge div:first-child .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-merge div:last-child .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input-merge div:not(:first-child) {
+  margin-left: -1px;
+}
+.input-merge div:not(:first-child):not(:last-child) .form-control {
+  border-radius: 0;
 }
 
 .box-shadow {

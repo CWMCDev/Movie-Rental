@@ -1,4 +1,4 @@
-var app = angular.module('movieRentalApp',['ngRoute', 'ui.bootstrap']);
+var app = angular.module('movieRentalApp',['ngRoute', 'ngStorage', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
@@ -36,7 +36,9 @@ app.config(function($routeProvider, $locationProvider) {
 	})
 });
 
-app.controller('mainController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+app.controller('mainController', ['$rootScope', '$scope', '$localStorage', '$http', function($rootScope, $scope, $localStorage, $http){
+	$rootScope.storage = $localStorage;
+
 	$rootScope.currentDate = new Date();
 	$http({
 			method: 'GET',
@@ -247,7 +249,26 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 			url: '/api/customer/' + email
 		}).then(function successCallback(response) {
 			if(typeof response.data.error === 'undefined'){
-				$rootScope.user = response.data[0];
+				$rootScope.storage.user = response.data[0];
+			}else{
+				$scope.error = response.data.error;
+			}	
+		}, function errorCallback(response) {
+    		// called asynchronously if an error occurs
+    		// or server returns response with an error status.
+		});
+	}
+}]);
+
+app.controller('signupController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+	$scope.signup = function(signupData){
+		$http({
+			method: 'POST',
+			url: '/api/customer/',
+			data: signupData
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				console.log(response);
 			}else{
 				$scope.error = response.data.error;
 			}	
@@ -259,7 +280,19 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 }]);
 
 app.controller('profileController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
-
+	/*$scope.signup = {
+		"firstName": "Ellen",
+		"lastName": "Cesar",
+		"email": "ellen1.cesargmail.com",
+		"phoneNumber": "0613268186",
+		"adress": {
+			"adress": "Opaal 36",
+			"postalCodeNumbers": 6922,
+			"postalCodeLetters": "NZ",
+			"city": "Duiven",
+			"country": "Nederland"
+		}
+	}*/
 }]);
 
 //////////////////////

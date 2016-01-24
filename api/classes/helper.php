@@ -13,6 +13,17 @@
     	return $min + $rnd;
 	}
 
+    function escapeArray($db, $array){
+        foreach ($array as $key => $value) {
+            $array['key'] = mysqli_real_escape_string($db->link, $value);
+        }
+        return $array;
+    }
+
+    function isValidEmail($email) {
+      return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
 	function generateID($length){
     	$id = "";
     	$codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
