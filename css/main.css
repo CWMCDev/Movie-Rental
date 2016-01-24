@@ -71,9 +71,10 @@
     margin-bottom: 20px;
 }
 
-.input-merge .col-xs-6 {
+.input-merge .noPadding{
   padding-left: 0;
   padding-right: 0;
+  margin-bottom: 12px;
 }
 .input-merge div:first-child .form-control {
   border-top-right-radius: 0;

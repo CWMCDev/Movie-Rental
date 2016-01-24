@@ -246,7 +246,7 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 	$scope.login = function(email){
 		$http({
 			method: 'GET',
-			url: '/api/customer/' + email
+			url: '/api/customer/email/' + email
 		}).then(function successCallback(response) {
 			if(typeof response.data.error === 'undefined'){
 				$rootScope.storage.user = response.data[0];
@@ -262,13 +262,14 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 
 app.controller('signupController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
 	$scope.signup = function(signupData){
+		signupData.adress.adress = signupData.adress.street + " " + signupData.adress.houseNumber;
 		$http({
 			method: 'POST',
 			url: '/api/customer/',
 			data: signupData
 		}).then(function successCallback(response) {
 			if(typeof response.data.error === 'undefined'){
-				console.log(response);
+				$rootScope.storage.user = respone.data;
 			}else{
 				$scope.error = response.data.error;
 			}	

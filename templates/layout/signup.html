@@ -1,41 +1,79 @@
 <!-- Source: http://bootsnipp.com/snippets/featured/squarespace-like-modal -->
 <!-- line modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" ng-controller="signupController">
-  <div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"><span>×</span><span class="sr-only">Close</span></button>
-			<h3 class="modal-title">Sign-up</h3>
-		</div>
-		<div class="modal-body">
-			
-            <!-- content goes here -->
-			<form>
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="firstName" class="form-control" id="firstName" placeholder="Enter first name" ng-model="signup.firstName">
-                <label for="name">Last Name</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="signup.lastName">
-              </div>
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="signup.email">
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" disabled>
-                <p class="help-block">Passwords might not be supported right now.</p>
-              </div>
-            </form>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>×</span><span class="sr-only">Close</span></button>
+				<h3 class="modal-title">Sign-up</h3>
+			</div>
+			<div class="modal-body">
 
-		</div>
-		<div class="modal-footer">
-			<div class="btn-group btn-group-justified" role="group">
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-primary" role="button" data-dismiss="modal" ng-click="signup(signupData)">Sign-up</button>
+				<!-- content goes here -->
+				<form>
+					<div class="form-group">
+						<label for="firstName">First Name</label>
+						<div class="input-merge">
+							<div class="noPadding col-xs-6">
+								<input type="firstName" class="form-control" id="firstName" placeholder="Enter first name" ng-model="signupData.firstName">
+							</div>
+							<div class="noPadding col-xs-6">
+								<input type="lastName" class="form-control" id="lastName" placeholder="Enter last name" ng-model="signupData.lastName">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email">Email address</label>
+						<input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="signupData.email">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" id="password" placeholder="Password" disabled>
+						<p class="help-block">Passwords might not be supported right now.</p>
+					</div>
+					<div class="form-group">
+						<label for="phoneNumber">Phone Number</label>
+						<input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" ng-model="signupData.phoneNumber">
+					</div>
+					<div class="form-group">
+						<label for="firstName">Street</label>
+						<div class="input-merge">
+							<div class="noPadding col-xs-10">
+								<input type="adress" class="form-control" id="adress" placeholder="Enter street" ng-model="signupData.adress.street">
+							</div>
+							<div class="noPadding col-xs-2">
+								<input type="houseNumber" class="form-control" id="houseNumber" placeholder="House number" ng-model="signupData.adress.houseNumber">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="postalCode">Postal Code</label>
+						<div class="input-merge">
+							<div class="noPadding col-xs-10">
+								<input type="adress" class="form-control" id="postalCodeNumbers" placeholder="Postalcode numbers" ng-model="signupData.adress.postalCodeNumbers">
+							</div>
+							<div class="noPadding col-xs-2">
+								<input type="postalCodeLetters" class="form-control" id="postalCodeLetters" placeholder="letters" ng-model="signupData.adress.postalCodeLetters">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="city">City</label>
+						<input type="city" class="form-control" id="city" placeholder="Enter city" ng-model="signupData.adress.city">
+					</div>
+					<div class="form-group">
+					<label for="country">Country</label>
+						<input type="country" class="form-control" id="country" placeholder="Enter country" ng-model="signupData.adress.country">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-primary" role="button" data-dismiss="modal" ng-click="signup(signupData)">Sign-up</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-  </div>
 </div>

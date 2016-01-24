@@ -193,7 +193,7 @@ $app->get('/categories/', function ($request, $response, $args) {
 //					//
 //////////////////////
 
-$app->get('/customer/{email}', function ($request, $response, $args) {
+$app->get('/customer/email/{email}', function ($request, $response, $args) {
 	if($customerData = getUsersFromEmail($args['email'])){
 		$users = array();
 
@@ -203,6 +203,16 @@ $app->get('/customer/{email}', function ($request, $response, $args) {
 		createResponse($users);
 	} else {
 		createResponse(array('error' => 'No users found with that email adress.'));
+	}
+});
+
+$app->get('/customer/{customer_id}', function ($request, $response, $args) {
+	if($customerData = getUsersFromID($args['customer_id'])){
+		$user = mysqli_fetch_array($customerData);
+
+		createResponse($user);
+	} else {
+		createResponse(array('error' => 'No user found with that id.'));
 	}
 });
 

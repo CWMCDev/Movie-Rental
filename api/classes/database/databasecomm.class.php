@@ -219,6 +219,20 @@ function getMoviesFromCategory($category){
 //					//
 //////////////////////
 
+function getUserFromID($id){
+	$db = new Database();
+	$email = mysqli_real_escape_string($db->link, $email);
+	
+	$db->doSQL("SELECT * FROM `Customers` WHERE customer_id='".$id."';");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
+
 function getUsersFromEmail($email){
 	$db = new Database();
 	$email = mysqli_real_escape_string($db->link, $email);
@@ -240,12 +254,8 @@ function insertCustomer($customer){
 
 	$db->doSQL("INSERT INTO `Customers` VALUES ('".$customer['id']."', '".$customer['firstName']."', '".$customer['lastName']."', '".$customer['email']."', '".$customer['phoneNumber']."', '".$customer['adress']['adress']."', '".$customer['adress']['postalCodeNumbers']."', '".$customer['adress']['postalCodeLetters']."', '".$customer['adress']['city']."', '".$customer['adress']['country']."')");
 	$db->closeConnection();
-	$result = $db->getRecord();
-	if(mysqli_num_rows($result) == 0){
-		return false;
-	} else {
-		return $result;
-	}
+	
+	return true;
 }
 
 
