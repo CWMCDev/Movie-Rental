@@ -60,13 +60,32 @@
 
 				<!-- Table -->
 				<table class="table">
-					<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:true})">
-						<td>{{rental.movie.title}}</td>
-						<td>{{rental.invoice.payed}}</td>
-						<td>{{rental.invoice.dueDate < currentDate}}</td>
-						<td>{{isOverdue(rental.invoice.dueDate, rental.invoice.payed)}}</td>
-					</tr>
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Rented</th>
+							<th>Due Date</th>
+							<th>Payed</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:true})">
+							<td>{{rental.movie.title}}</td>
+							<td>{{rental.loanDate | date:'dd MMM yy'}}</td>
+							<td class="text-danger">{{rental.invoice.dueDate | date:'dd MMM yy'}}</td>
+							<td ng-show="!rental.invoice.payed && !rental.invoice.paying"><a ng-click="addToReceipt(rental)"><span class="glyphicon glyphicon-plus text-info" uib-popover="Add to payments!" popover-trigger="mouseenter"></span></a></td>
+							<td ng-show="!rental.invoice.payed && rental.invoice.paying"><a ng-click="removeFromReceipt(rental)"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
+							<td ng-show="rental.invoice.payed"><span class="glyphicon glyphicon-ok text-success"></span></td>
+						</tr>
+					</tbody>
 				</table>
+				<div class="modal-footer" ng-show="receipt.rentals.length > 0">
+					<div class="btn-group btn-group-justified" role="group">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-danger" role="button" data-toggle="modal" data-target="#receiptModal" ng-click="calculateReceipt()">Pay Selected</button>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- Payed -->
@@ -80,6 +99,7 @@
 						<tr>
 							<th>Title</th>
 							<th>Rented</th>
+							<th>Due Date</th>
 							<th>Payed</th>
 						</tr>
 					</thead>
@@ -87,6 +107,7 @@
 						<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:false})">
 							<td>{{rental.movie.title}}</td>
 							<td>{{rental.loanDate | date:'dd MMM yy'}}</td>
+							<td>{{rental.invoice.dueDate | date:'dd MMM yy'}}</td>
 							<td ng-show="!rental.invoice.payed && !rental.invoice.paying"><a ng-click="addToReceipt(rental)"><span class="glyphicon glyphicon-plus text-info" uib-popover="Add to payments!" popover-trigger="mouseenter"></span></a></td>
 							<td ng-show="!rental.invoice.payed && rental.invoice.paying"><a ng-click="removeFromReceipt(rental)"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
 							<td ng-show="rental.invoice.payed"><span class="glyphicon glyphicon-ok text-success"></span></td>
