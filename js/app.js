@@ -111,7 +111,7 @@ app.controller('actorController', ['$scope', '$http', '$routeParams', function($
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-});
+	});
 }]);
 
 app.controller('moviesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
@@ -146,7 +146,7 @@ app.controller('moviesController', ['$scope', '$http', '$routeParams', function(
 	}
 }]);
 
-app.controller('movieController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+app.controller('movieController', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams){
 	$scope.rating = {
 		rate: null,
 		isReadonly: false,
@@ -170,7 +170,27 @@ app.controller('movieController', ['$scope', '$http', '$routeParams', function($
 	}, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-});
+	});
+	$scope.rentMovie = function(){
+		var data = {
+			movieID: $scope.movie.movie_id,
+			customerID: $rootScope.storage.user.customerID
+		}
+		$http({
+			method: 'POST',
+			url: '/api/customer/rentals/rent',
+			data: data
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				console.log("Rented with id:" + response.data.id);
+			}else{
+				$scope.error = response.data.error;
+			}	
+		}, function errorCallback(response) {
+    		// called asynchronously if an error occurs
+    		// or server returns response with an error status.
+    	});
+	}
 }]);
 
 app.controller('categoriesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){

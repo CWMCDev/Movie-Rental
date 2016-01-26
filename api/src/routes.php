@@ -291,7 +291,7 @@ $app->post('/customer/rentals/rent', function ($request, $response) {
 
 //////////////////////
 //					//
-//	Receipts 		//
+//	Invoices 		//
 //					//
 //////////////////////
 
