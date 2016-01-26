@@ -34,8 +34,8 @@ class Database
 	public function doSQL($query)
 	{
 		$this->result = $this->link->query($query);
-		//echo "$query \n";
-		//print_r($this->link->error_list);
+		//error_log("Query: ".$query);
+		//error_log("Error: ".var_dump($this->link->error_list));
 	}
 	
 	/*

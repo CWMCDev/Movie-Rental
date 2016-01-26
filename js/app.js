@@ -45,15 +45,15 @@ app.controller('mainController', ['$rootScope', '$scope', '$localStorage', '$htt
 
 	$rootScope.currentDate = new Date();
 	$http({
-			method: 'GET',
-			url: '/api/version/'
-		}).then(function successCallback(response) {
-			if(typeof response.data.error === 'undefined'){
-				$rootScope.version = response.data.git_version;
-			}else{
-				$scope.error = response.data.error;
-			}		
-		}, function errorCallback(response) {
+		method: 'GET',
+		url: '/api/version/'
+	}).then(function successCallback(response) {
+		if(typeof response.data.error === 'undefined'){
+			$rootScope.version = response.data.git_version;
+		}else{
+			$scope.error = response.data.error;
+		}		
+	}, function errorCallback(response) {
 	    	// called asynchronously if an error occurs
 	    	// or server returns response with an error status.
 	    });	
@@ -260,7 +260,7 @@ app.controller('loginController', ['$rootScope', '$scope', '$http', function($ro
 		}, function errorCallback(response) {
     		// called asynchronously if an error occurs
     		// or server returns response with an error status.
-		});
+    	});
 	}
 }]);
 
@@ -280,43 +280,96 @@ app.controller('signupController', ['$rootScope', '$scope', '$http', function($r
 		}, function errorCallback(response) {
     		// called asynchronously if an error occurs
     		// or server returns response with an error status.
-		});
+    	});
 	}
 }]);
 
 app.controller('profileController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
-	$http({
-		method: 'GET',
-		url: '/api/customer/rentals/' + $rootScope.storage.user.customerID
-	}).then(function successCallback(response) {
-		if(typeof response.data.error === 'undefined'){
-			var rentals = [];
-			for (index = 0; index < response.data.length; ++index) {
-    			var rental = response.data[index];
-    			rental.invoice.dueDate = new Date(rental.invoice.dueDate);
-    			rental.loanDate = new Date(rental.loanDate);
-    			rental.isOverdue = $scope.isOverdue(rental.invoice.dueDate, rental.invoice.payed);
-    			console.log(rental.isOverdue);
-    			rentals.push(rental);
-			};
-
-			$scope.rentals = rentals;
-		}else{
-			$scope.rentalError = response.data.error;
-		}		
-	}, function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
+	$scope.receipt = {rentals:[], step:1};
+	$rootScope.$watch('storage.user', function() {
+    	$scope.loadRentals();
 	});
+
+	$scope.loadRentals = function(){
+		if (typeof $rootScope.storage.user != 'undefined' && $rootScope.storage.user != null){
+			$http({
+				method: 'GET',
+				url: '/api/customer/rentals/' + $rootScope.storage.user.customerID
+			}).then(function successCallback(response) {
+				if(typeof response.data.error === 'undefined'){
+					var rentals = [];
+					for (index = 0; index < response.data.length; ++index) {
+						var rental = response.data[index];
+						rental.invoice.dueDate = new Date(rental.invoice.dueDate);
+						rental.loanDate = new Date(rental.loanDate);
+						rental.isOverdue = $scope.isOverdue(rental.invoice.dueDate, rental.invoice.payed);
+						rentals.push(rental);
+					};
+
+					$scope.rentals = rentals;
+				}else{
+					$scope.rentalError = response.data.error;
+				}		
+			}, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+			});
+		}
+	}
 
 	$scope.isOverdue = function(date, payed){
 		if(payed){
 			return false
 		}
-		console.log(date);
-		console.log($rootScope.currentDate);
-		console.log(date < $rootScope.currentDate);
 		return date < $rootScope.currentDate;
+	}
+
+	$scope.addToReceipt = function(rental){
+		console.log($scope.receipt.rentals.length);
+		console.log(rental);
+		rental.invoice.paying = true;
+		$scope.receipt.rentals.push(rental);
+	}
+
+	$scope.removeFromReceipt = function(rental){
+		rental.invoice.paying = false;
+		var index = $scope.receipt.rentals.indexOf(rental);
+		$scope.receipt.rentals.splice(index, 1)
+	}
+
+	$scope.calculateReceipt = function(){
+		$scope.receipt.total = 0;
+		$.each($scope.receipt.rentals,function() {
+			$scope.receipt.total += parseFloat(this.invoice.amount);
+		});
+		$scope.receipt.tax = $scope.receipt.total * 0.21
+		$scope.receipt.subTotal = $scope.receipt.total * 0.79
+	}
+
+	$scope.pay = function(){
+		$http({
+			method: 'POST',
+			url: '/api/customer/invoice/pay',
+			data: $scope.receipt
+		}).then(function successCallback(response) {
+			if(typeof response.data.error === 'undefined'){
+				console.log(response.data);
+				for (var i = response.data.length - 1; i >= 0; i--) {
+					var rentalID = response.data[i].id
+					var rentalPayed = response.data[i].payed
+
+					var object_by_id = $scope.rentals.filter(function(rental){return rental.id == rentalID})[0];
+					console.log(object_by_id);
+					var index = $scope.rentals.indexOf(object_by_id);
+					$scope.rentals[index].invoice.payed = rentalPayed;
+				};
+			}else{
+				$scope.error = response.data.error;
+			}	
+		}, function errorCallback(response) {
+    		// called asynchronously if an error occurs
+    		// or server returns response with an error status.
+    	});
 	}
 }]);
 //////////////////////

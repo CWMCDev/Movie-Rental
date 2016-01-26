@@ -260,7 +260,7 @@ function insertCustomer($customer){
 
 //////////////////////
 //					//
-//	Invoices 		//
+//		Rental 		//
 //					//
 //////////////////////
 
@@ -280,5 +280,35 @@ function getRentalsFromUser($id){
 	}
 }
 
+function insertRental($rental){
+	$db = new Database();
+	$rental = escapeArray($db, $rental);	
+	
+	$db->doSQL("INSERT INTO `Rentals` (`rental_id`, `movie_id`, `customer_id`, `loan_date`) VALUES ('".$rental['rentalID']."', '".$rental['movieID']."', '".$rental['customerID']."', '".$rental['loanDate']."')");
+	$db->doSQL("INSERT INTO `Invoices` (`rental_id`, `amount`, `due_date`, `payed`) VALUES ('".$rental['rentalID']."', '".$rental['amount']."', '".$rental['dueDate']."', '0')");
+	$db->doSQL("INSERT INTO `Reminders` (`rental_id`, `first_reminder`, `second_reminder`) VALUES ('".$rental['rentalID']."', '0', '0')");
+	$db->closeConnection();
 
+	return true;
+}
+
+//////////////////////
+//					//
+//	Invoices 		//
+//					//
+//////////////////////
+
+function payInvoice($rentalID){
+	$db = new Database();
+	$rentalID = mysqli_real_escape_string($db->link, $rentalID);
+	
+	$db->doSQL("UPDATE `Invoices` SET `payed`=true WHERE `rental_id`='".$rentalID."';");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return true;
+	}
+}
 ?>

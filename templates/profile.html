@@ -1,5 +1,6 @@
 <div class="container">
-	<div class="alert alert-danger" role="alert" ng-hide="storage.user">
+	<div ng-include="'templates/payment/receipt.html'"></div>
+	<div class="alert alert-danger alert-dismissible" role="alert" ng-hide="storage.user">
 		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 		<span class="sr-only">Error:</span>
 		Please <a class="text-danger" data-toggle="modal" data-target="#loginModal" style="text-decoration:underline;">login</a>!
@@ -9,9 +10,9 @@
 		<button type="button" class="close" data-dismiss="alert" ng-click="storage.messages.profile.welcome = true"><span>&times;</span></button>
 		Welcome {{storage.user.firstName}} {{storage.user.lastName}}
 	</div>
-	<div class="row">
+	<div class="row" ng-show="storage.user">
 		<div class="col-md-4 col-sm-6">
-			<div class="col-xs-12" ng-show="storage.user">
+			<div class="col-xs-12">
 				<h2 class="text-primary">Contact</h2>
 				<table class="table table-striped">
 					<tr>
@@ -25,7 +26,7 @@
 
 				</table>
 			</div>
-			<div class="col-xs-12" ng-show="storage.user">
+			<div class="col-xs-12">
 				<h2 class="text-primary">Adress</h2>
 				<table class="table table-striped">
 					<tr>
@@ -52,14 +53,10 @@
 				<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
 				<strong>Error</strong> {{rentalError}}
 			</div>
-
 			<!-- Overdue -->
 			<div class="panel panel-danger" ng-show="filteredRentals.length > 0">
 				<!-- Default panel contents -->
-				<div class="panel-heading">Overdue!</div>
-				<div class="panel-body">
-					<p>What movies have your rented in the past?</p>
-				</div>
+				<div class="panel-heading"><h3 class="panel-title">Overdue!</h3></div>
 
 				<!-- Table -->
 				<table class="table">
@@ -75,7 +72,7 @@
 			<!-- Payed -->
 			<div class="panel panel-primary" ng-show="filteredRentals.length > 0">
 				<!-- Default panel contents -->
-				<div class="panel-heading">Rentals</div>
+				<div class="panel-heading"><h3 class="panel-title">Rentals</h3></div>
 
 				<!-- Table -->
 				<table class="table">
@@ -90,12 +87,22 @@
 						<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:false})">
 							<td>{{rental.movie.title}}</td>
 							<td>{{rental.loanDate | date:'dd MMM yy'}}</td>
-							<td ng-show="!rental.invoice.payed"><span class="glyphicon glyphicon-remove text-danger"></span></td>
+							<td ng-show="!rental.invoice.payed && !rental.invoice.paying"><a ng-click="addToReceipt(rental)"><span class="glyphicon glyphicon-plus text-info" uib-popover="Add to payments!" popover-trigger="mouseenter"></span></a></td>
+							<td ng-show="!rental.invoice.payed && rental.invoice.paying"><a ng-click="removeFromReceipt(rental)"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
 							<td ng-show="rental.invoice.payed"><span class="glyphicon glyphicon-ok text-success"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="modal-footer" ng-show="receipt.rentals.length > 0">
+					<div class="btn-group btn-group-justified" role="group">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-primary" role="button" data-toggle="modal" data-target="#receiptModal" ng-click="calculateReceipt()">Pay Selected</button>
+						</div>
+					</div>
+				</div>			
 			</div>
 		</div>
 	</div>
 </div>
+
+<!--data-toggle="modal" data-target="#receiptModal" -->

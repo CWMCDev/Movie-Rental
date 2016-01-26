@@ -35,6 +35,22 @@ function editCustomer($customerData){
 	return $customer;
 }
 
+function createRental($data){ //Data: movieID & customerID
+	$id = generateID(6);
+
+	$data['rentalID'] = $id;
+	$data['loanDate'] = date("Y-m-d");
+	$data['dueDate'] = date("Y-m-d", strtotime("+1 month"));
+
+	$data['amount'] = 3.00;
+
+	if(insertRental($data) != false){
+		return $id;
+	} else {
+		return false;
+	}
+}
+
 function editRental($rentalData){
 	$rental = array();
 	$rental['id'] = $rentalData['rental_id'];

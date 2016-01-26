@@ -272,6 +272,50 @@ $app->get('/customer/rentals/{id}', function ($request, $response, $args) {
 	}
 });
 
+$app->post('/customer/rentals/rent', function ($request, $response) {
+	$args = $request->getParsedBody();
+	$errors = array();
+	if(empty($args['movieID'])){
+		array_push($errors, 'No movie set!');
+	}
+	if(empty($args['customerID'])){
+		array_push($errors, 'No customer set!');
+	}
+
+	if(!empty($errors)){
+		createResponse($errors);
+	} else {
+		createResponse(array('id' => createRental($args)));
+	}
+});
+
+//////////////////////
+//					//
+//	Receipts 		//
+//					//
+//////////////////////
+
+$app->post('/customer/invoice/pay', function ($request, $response) {
+	$args = $request->getParsedBody();
+	if(empty($args['rentals'])){
+		createResponse(array('error' => 'No rentals found.'));
+		return;
+	}
+
+	$rentals = $args['rentals'];
+
+	$results = array();
+
+	for ($i=0; $i < count($rentals); $i++) {
+		$result = array();
+		$result['id'] = $rentals[$i]['id'];
+		$result['payed'] = true;
+		payInvoice($rentals[$i]['id']);
+		array_push($results, $result);
+	};
+	createResponse($results);
+});
+
 //////////////////////
 //					//
 //		Misc 		//
