@@ -84,7 +84,7 @@ app.controller('actorsController', ['$scope', '$http', '$routeParams', function(
 	} else {
 		$http({
 			method: 'GET',
-			url: '/api/actors/random/5'
+			url: '/api/actors/random/12'
 		}).then(function successCallback(response) {
 			if(typeof response.data.error === 'undefined'){
 				$scope.actors = response.data;

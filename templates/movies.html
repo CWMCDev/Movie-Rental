@@ -6,24 +6,26 @@
 	</div>
 </div>
 <div class="container" ng-show="movies">
-	<div class="col-md-4 col-sm-6 lib-item" data-category="view" ng-repeat="movie in movies">
-	    <div class="lib-panel">
-	        <div class="row box-shadow">
-	            <div class="col-md-6">
-	                <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
-	            </div>
-	            <div class="col-md-6">
-	                <div class="lib-row lib-header">
-						<a href="#/movie/{{movie.movie_id}}">
-	                    	<h2>{{movie.name}}</h2>
-	                    </a>
-	                    <div class="lib-header-seperator"></div>
-	                </div>
-	                <div class="lib-row lib-desc">
-	                    {{movie.description | cut:true:150:' ...'}}
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+	<div class="row row-horizon">
+		<div class="col-md-4 col-sm-6 lib-item" data-category="view" ng-repeat="movie in movies">
+		    <div class="lib-panel">
+		        <div class="row box-shadow">
+		            <div class="col-md-6">
+		                <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
+		            </div>
+		            <div class="col-md-6">
+		                <div class="lib-row lib-header">
+							<a href="#/movie/{{movie.movie_id}}">
+		                    	<h2>{{movie.name}}</h2>
+		                    </a>
+		                    <div class="lib-header-seperator"></div>
+		                </div>
+		                <div class="lib-row lib-desc">
+		                    {{movie.description | cut:true:150:' ...'}}
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 	</div>
 </div>

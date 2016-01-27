@@ -28,25 +28,26 @@
     </div>
 </div>
 <div class="col-md-9 col-sm-8" ng-controller="moviesController">
-    <div class="col-lg-6 col-md-6 lib-item" data-category="view" ng-repeat="movie in movies">
-        <a href="#/movie/{{movie.movie_id}}" style="text-decoration:none; color:black">
-            <div class="lib-panel">
-                <div class="row box-shadow">
-                    <div class="col-lg-6 col-md-12">
-                        <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="lib-row lib-header">
-                            <h2>{{movie.name}}</h2>
-                            <div class="lib-header-seperator"></div>
+    <div class="row row-horizon">
+        <div class="col-lg-6 col-md-6 lib-item" data-category="view" ng-repeat="movie in movies | orderBy:movie.rating">
+            <a href="#/movie/{{movie.movie_id}}" style="text-decoration:none; color:black">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-lg-6 col-md-12">
+                            <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
                         </div>
-                        <div class="lib-row lib-desc">
-                            <p>{{movie.description}}</p>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="lib-row lib-header">
+                                <h2>{{movie.name}}</h2>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>{{movie.description}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-</div>
 </div>

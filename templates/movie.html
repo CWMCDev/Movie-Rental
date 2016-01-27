@@ -33,24 +33,26 @@
     </div>
 </div>
 <div class="col-md-9 col-sm-8" ng-controller="actorsController">
-	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 lib-item" data-category="view" ng-repeat="actor in actors">
-		<a href="#/actor/{{actor.actor_id}}" style="text-decoration:none; color:black">
-		    <div class="lib-panel">
-		        <div class="row box-shadow">
-		            <div class="col-xs-12">
-		                <img class="lib-img-show" src="/actor/img/{{actor.actor_id}}.jpg">
-		            </div>
-		            <div class="col-xs-12">
-		                <div class="lib-row lib-header">
-	                    	<h5>{{actor.firstname}} {{actor.lastname}}</h5>
-		                    <div class="lib-header-seperator"></div>
-		                </div>
-		                <div class="lib-row lib-desc">
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</a>
+	<div class="row row-horizon">
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 lib-item" data-category="view" ng-repeat="actor in actors">
+			<a href="#/actor/{{actor.actor_id}}" style="text-decoration:none; color:black">
+			    <div class="lib-panel">
+			        <div class="row box-shadow">
+			            <div class="col-xs-12">
+			                <img class="lib-img-show" src="/actor/img/{{actor.actor_id}}.jpg">
+			            </div>
+			            <div class="col-xs-12">
+			                <div class="lib-row lib-header">
+		                    	<h5>{{actor.firstname}} {{actor.lastname}}</h5>
+			                    <div class="lib-header-seperator"></div>
+			                </div>
+			                <div class="lib-row lib-desc">
+			                <p ng-show="actor.character_name">As: {{actor.character_name}}</p>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</a>
+		</div>
 	</div>
-</div>
 </div>

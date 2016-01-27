@@ -151,10 +151,9 @@ function getActorsFromMovie($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);
 	
-	$db->doSQL("SELECT * FROM `Actors` WHERE actor_id IN (SELECT actor_id FROM `Plays_In` WHERE movie_id='".$id."');");
+	$db->doSQL("SELECT `Actors`.`actor_id`, `Actors`.`firstname`, `Actors`.`lastname`, `Plays_In`.`character_name` FROM `Actors` INNER JOIN Plays_In ON `Actors`.`actor_id` = `Plays_In`.`actor_id` WHERE `Plays_In`.`movie_id`='".$id."';");
 	$db->closeConnection();
 	$result = $db->getRecord();
-	
 	if(mysqli_num_rows($result) == 0){
 		return false;
 	} else {

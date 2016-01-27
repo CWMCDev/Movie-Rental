@@ -29,7 +29,7 @@ function createResponse($data=array()) {
 
 $app->get('/actor/{actorId}', function ($request, $response, $args) {
 	if($actorData = getActor($args['actorId'])){
-		$actor = editActor(mysqli_fetch_array($actorData));
+		$actor = mysqli_fetch_array($actorData);
 		createResponse($actor);
 	} else {
 		createResponse(array('error' => 'Could not load actor.'));
@@ -41,7 +41,7 @@ $app->get('/actor/search/{actorName}', function ($request, $response, $args) {
 		$actors = array();
 
 		while($actor = mysqli_fetch_array($actorData)){
-			array_push($actors, editActor($actor));
+			array_push($actors, $actor);
 		}
 
 		createResponse($actors);
@@ -55,7 +55,7 @@ $app->get('/actors/random/{amount}', function ($request, $response, $args) {
 		$actors = array();
 
 		while($actor = mysqli_fetch_array($actorData)){
-			array_push($actors, editActor($actor));
+			array_push($actors, $actor);
 		}   
 
 		createResponse($actors);
@@ -69,7 +69,7 @@ $app->get('/actors/', function ($request, $response, $args) {
 		$actors = array();
 
 		while($actor = mysqli_fetch_array($actorData)){
-			array_push($actors, editActor($actor));
+			array_push($actors, $actor);
 		}
 
 		createResponse($actors);
@@ -83,7 +83,7 @@ $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
 		$actors = array();
 
 		while($actor = mysqli_fetch_array($actorData)){
-			array_push($actors, editActor($actor));
+			array_push($actors, $actor);
 		}
 
 		createResponse($actors);

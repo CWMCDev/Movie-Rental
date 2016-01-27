@@ -3,7 +3,7 @@
 	<div class="alert alert-danger alert-dismissible" role="alert" ng-hide="storage.user">
 		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 		<span class="sr-only">Error:</span>
-		Please <a class="text-danger" data-toggle="modal" data-target="#loginModal" style="text-decoration:underline;">login</a>!
+		Please <a class="alert-link" data-toggle="modal" data-target="#loginModal">login</a>!
 	</div>
 
 	<div class="alert alert-info" role="alert" ng-hide="storage.messages.profile.welcome">
@@ -70,7 +70,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:true})">
-							<td>{{rental.movie.title}}</td>
+							<td><a href="#/movie/{{rental.movie.id}}" style="text-decoration:none; color:black">{{rental.movie.title}}</a></td>
 							<td>{{rental.loanDate | date:'dd MMM yy'}}</td>
 							<td class="text-danger">{{rental.invoice.dueDate | date:'dd MMM yy'}}</td>
 							<td ng-show="!rental.invoice.payed && !rental.invoice.paying"><a ng-click="addToReceipt(rental)"><span class="glyphicon glyphicon-plus text-info" uib-popover="Add to payments!" popover-trigger="mouseenter"></span></a></td>
@@ -105,7 +105,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="rental in filteredRentals = (rentals | filter:{isOverdue:false})">
-							<td>{{rental.movie.title}}</td>
+							<td><a href="#/movie/{{rental.movie.id}}" style="text-decoration:none; color:black">{{rental.movie.title}}</a></td>
 							<td>{{rental.loanDate | date:'dd MMM yy'}}</td>
 							<td>{{rental.invoice.dueDate | date:'dd MMM yy'}}</td>
 							<td ng-show="!rental.invoice.payed && !rental.invoice.paying"><a ng-click="addToReceipt(rental)"><span class="glyphicon glyphicon-plus text-info" uib-popover="Add to payments!" popover-trigger="mouseenter"></span></a></td>
