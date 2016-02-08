@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group">
 						<label for="phoneNumber">Phone Number</label>
-						<input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" ng-model="signupData.phoneNumber">
+						<input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" ng-model="signupData.phoneNumber" data-mask="999999999999">
 					</div>
 					<div class="form-group">
 						<label for="firstName">Street</label>
@@ -42,7 +42,7 @@
 								<input type="adress" class="form-control" id="adress" placeholder="Enter street" ng-model="signupData.adress.street">
 							</div>
 							<div class="noPadding col-xs-2">
-								<input type="houseNumber" class="form-control" id="houseNumber" placeholder="House number" ng-model="signupData.adress.houseNumber">
+								<input type="houseNumber" class="form-control" id="houseNumber" placeholder="House number" ng-model="signupData.adress.houseNumber" data-mask="999999">
 							</div>
 						</div>
 					</div>
@@ -50,10 +50,10 @@
 						<label for="postalCode">Postal Code</label>
 						<div class="input-merge">
 							<div class="noPadding col-xs-10">
-								<input type="adress" class="form-control" id="postalCodeNumbers" placeholder="Postalcode numbers" ng-model="signupData.adress.postalCodeNumbers">
+								<input type="adress" class="form-control" id="postalCodeNumbers" placeholder="Postalcode numbers" ng-model="signupData.adress.postalCodeNumbers" data-mask="aaaaaa">
 							</div>
 							<div class="noPadding col-xs-2">
-								<input type="postalCodeLetters" class="form-control" id="postalCodeLetters" placeholder="letters" ng-model="signupData.adress.postalCodeLetters">
+								<input type="postalCodeLetters" class="form-control" id="postalCodeLetters" placeholder="letters" ng-model="signupData.adress.postalCodeLetters" data-mask="999999">
 							</div>
 						</div>
 					</div>

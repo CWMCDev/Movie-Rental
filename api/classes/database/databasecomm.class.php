@@ -310,4 +310,24 @@ function payInvoice($rentalID){
 		return true;
 	}
 }
+
+//////////////////////
+//					//
+//		Stats 		//
+//					//
+//////////////////////
+
+function payedStats(){
+	$db = new Database();
+	
+	$db->doSQL("SELECT `payed`, COUNT(`payed`) as 'amount' FROM `Invoices` GROUP BY `payed`");
+	$db->closeConnection();
+	$result = $db->getRecord();
+	error_log(print_r($result,true));
+	if(mysqli_num_rows($result) == 0){
+		return false;
+	} else {
+		return $result;
+	}
+}
 ?>

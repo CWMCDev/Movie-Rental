@@ -318,6 +318,26 @@ $app->post('/customer/invoice/pay', function ($request, $response) {
 
 //////////////////////
 //					//
+//		Stats 		//
+//					//
+//////////////////////
+
+$app->get('/stats/payed/', function ($request, $response, $args) {
+	if($statsData = payedStats()){
+		$stats = array();
+
+		while($stat = mysqli_fetch_array($statsData)){
+			array_push($stats, $stat);
+		}		
+
+		createResponse($stats);
+	} else {
+		createResponse(array('error' => 'Could not load invoice stats.'));
+	}
+});
+
+//////////////////////
+//					//
 //		Misc 		//
 //					//
 //////////////////////

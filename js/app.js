@@ -1,7 +1,12 @@
-var app = angular.module('movieRentalApp',['ngRoute', 'ngStorage', 'ui.bootstrap']);
+var app = angular.module('movieRentalApp',['ngRoute', 'ngStorage', 'ui.bootstrap', 'chart.js']);
+
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
+	.when('/', {
+		templateUrl: 'templates/index.html',
+		controller: 'indexController'
+	})
 	.when('/actors/', {
 		templateUrl: 'templates/actors.html',
 		controller: 'actorsController'
@@ -34,6 +39,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/profile.html',
 		controller: 'profileController'
 	})
+
+	.when('/admin/', {
+		templateUrl: 'templates/admin.html',
+		controller: 'adminController'
+	})
 });
 
 app.controller('mainController', ['$rootScope', '$scope', '$localStorage', '$http', function($rootScope, $scope, $localStorage, $http){
@@ -60,9 +70,14 @@ app.controller('mainController', ['$rootScope', '$scope', '$localStorage', '$htt
 	$rootScope.search = {data: ''};
 }]);
 
+app.controller('indexController', ['$rootScope', '$scope', '$localStorage', '$http', function($rootScope, $scope, $localStorage, $http){
+	$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+  	$scope.data = [300, 500, 500];
+}]);
+
 //////////////////////
 //					//
-//		Movies 		//
+//		Actors 		//
 //					//
 //////////////////////
 
@@ -105,6 +120,7 @@ app.controller('actorController', ['$scope', '$http', '$routeParams', function($
 	}).then(function successCallback(response) {
 		if(typeof response.data.error === 'undefined'){
 			$scope.actor = response.data;
+			$scope.actor.birthdate = new Date($scope.actor.birthdate);
 		}else{
 			$scope.error = response.data.error;
 		}		
@@ -113,6 +129,12 @@ app.controller('actorController', ['$scope', '$http', '$routeParams', function($
     // or server returns response with an error status.
 	});
 }]);
+
+//////////////////////
+//					//
+//		Movies 		//
+//					//
+//////////////////////
 
 app.controller('moviesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
 	if (typeof $routeParams.actorId != 'undefined'){
@@ -192,6 +214,12 @@ app.controller('movieController', ['$rootScope', '$scope', '$http', '$routeParam
     	});
 	}
 }]);
+
+//////////////////////
+//					//
+//	Categories 		//
+//					//
+//////////////////////
 
 app.controller('categoriesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
 	$http({
@@ -392,6 +420,36 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
     	});
 	}
 }]);
+
+//////////////////////
+//					//
+//		Admin 		//
+//					//
+//////////////////////
+
+app.controller('adminController', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams){
+	$scope.stats = {payed: {}};
+
+	$http({
+		method: 'GET',
+		url: '/api/stats/payed/'
+	}).then(function successCallback(response) {
+		if(typeof response.data.error === 'undefined'){
+			console.log(response.data);
+			$scope.stats.payed.data = response.data;
+			$scope.stats.payed.labels = ['Not Payed', 'Payed'];
+			$scope.stats.payed.colours = ['#D9534F', '#449D44'];
+			$scope.stats.payed.amounts = $scope.stats.payed.data.map(function(stat) {return stat.amount;});
+		}else{
+			$scope.error = response.data.error;
+		}		
+	}, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+	});
+	
+}]);
+
 //////////////////////
 //					//
 //		Misc 		//

@@ -10,7 +10,7 @@
     <div class="lib-panel">
         <div class="row box-shadow">
             <div class="col-lg-12">
-                <img class="lib-img-show" src="/actor/img/{{actor.actor_id}}.jpg">
+                <img class="lib-img-show" ng-src="/actor/img/{{actor.actor_id}}.jpg">
             </div>
             <div class="col-lg-12">
                 <div class="lib-row lib-header">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="lib-row lib-desc">
                     <table class="table table-striped">
-                        <tr><th>Birth Date</th><td>{{actor.birthdate}}</td></tr>
+                        <tr><th>Birth Date</th><td>{{actor.birthdate | date:'dd MMM yyyy'}}</td></tr>
                         <tr><th>Birth Place</th><td>{{actor.birth_city}} {{actor.birth_province}} {{actor.birth_country}}</td></tr>
                     </table>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-lg-6 col-md-12">
-                            <img class="lib-img-show" src="/movie/img/{{movie.movie_id}}.jpg">
+                            <img class="lib-img-show" ng-src="/movie/img/{{movie.movie_id}}.jpg">
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="lib-row lib-header">
