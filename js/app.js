@@ -394,7 +394,7 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 		$scope.receipt.subTotal = $scope.receipt.total * 0.79
 	}
 
-	$scope.pay = function(){
+	$scope.pay = function(rentals){
 		$http({
 			method: 'POST',
 			url: '/api/customer/invoice/pay',
@@ -412,8 +412,10 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 					$scope.rentals[index].invoice.payed = rentalPayed;
 					rental.invoice.paying = false;
 					
-					var index = $scope.receipt.rentals.indexOf(response.data[i]);
-					$scope.receipt.rentals.splice(index, 1);
+					for (var i = rentals.length - 1; i >= 0; i--) {
+						var index = $scope.receipt.rentals.indexOf(rentals[i]);
+						$scope.receipt.rentals.splice(index, 1);
+					}
 				};
 			}else{
 				$scope.error = response.data.error;
