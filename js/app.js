@@ -410,11 +410,9 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 					console.log(object_by_id);
 					var index = $scope.rentals.indexOf(object_by_id);
 					$scope.rentals[index].invoice.payed = rentalPayed;
-					rental.invoice.paying = false;
 					
 					for (var i = rentals.length - 1; i >= 0; i--) {
-						var index = $scope.receipt.rentals.indexOf(rentals[i]);
-						$scope.receipt.rentals.splice(index, 1);
+						removeFromReceipt(rentals[i]);
 					}
 				};
 			}else{
