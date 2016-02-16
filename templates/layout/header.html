@@ -34,6 +34,7 @@
           </form>
         </div>
       </li>
+      <li ng-show="storage.user"><a href="/upload.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
       <li ng-show="storage.user"><a href="#/profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
       <li ng-show="storage.user"><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       <li ng-hide="storage.user"><a data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
