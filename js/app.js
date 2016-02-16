@@ -412,7 +412,11 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 					$scope.rentals[index].invoice.payed = rentalPayed;
 					
 					for (var i = rentals.length - 1; i >= 0; i--) {
-						removeFromReceipt(rentals[i]);
+						var rental = rentals[i];
+						
+						rental.invoice.paying = false;
+						var index = $scope.receipt.rentals.indexOf(rental);
+						$scope.receipt.rentals.splice(index, 1)
 					}
 				};
 			}else{
