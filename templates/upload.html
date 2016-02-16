@@ -1,0 +1,22 @@
+    <div class="container">
+      <h2>Upload new Movie</h2>
+      <form role="form" action="upload.php" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">Movie:</label>
+          <input type="text" class="form-control" name="title" id="title" placeholder="Enter Movie Name">
+        </div>
+        <div class="form-group">
+          <label for="releaseDate">Release Date:</label>
+          <input type="text" class="form-control" name="releaseDate" id="releaseDate" placeholder="Enter Release Date">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input type="text" class="form-control" name="description" id="description" placeholder="Enter Description">
+        </div>
+        <div class="form-group">
+          <label for="fileToUpload">Image:</label>
+          <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>

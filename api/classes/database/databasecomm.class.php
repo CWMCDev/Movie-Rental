@@ -89,6 +89,16 @@ function getMoviesFromActor($id){
 //					//
 //////////////////////
 
+function addMovie($id, $name, $releaseDate, $description){
+	$db = new Database();,
+	$id = mysqli_real_escape_string($db->link, $id);
+
+	$db->doSQL("INSERT INTO`Movies` VALUES ('".$id."','".$name."','".$releaseDate."','".$description."','3');");
+	$db->closeConnection();
+  
+  return true;
+}
+
 function getMovie($id){
 	$db = new Database();
 	$id = mysqli_real_escape_string($db->link, $id);

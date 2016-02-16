@@ -24,6 +24,10 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/movie.html',
 		controller: 'movieController'
 	})
+  
+  .when('/upload', {
+		templateUrl: 'templates/upload.html'
+	})
 
 	.when('/category/:category', {
 		templateUrl: 'templates/categorie.html',

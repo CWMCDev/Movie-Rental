@@ -98,6 +98,14 @@ $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
 //					//
 //////////////////////
 
+$app->get('/movie/add/{movieId}/{movieName}/{movieReleaseDate}/{movieDescription}' {
+  if (addMovie($args['movieId'], $args['movieName'], $args['movieReleaseDate'], $args['movieDescription'])) {
+    createResponse(array('succes' => 'Succesfully created movie.'));
+  } else {
+		createResponse(array('error' => 'Could not create movie.'));
+	}
+});
+
 $app->get('/movie/{movieId}', function ($request, $response, $args) {
 	if($movieData = getMovie($args['movieId'])){
 		$movie = mysqli_fetch_array($movieData);
