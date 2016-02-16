@@ -410,6 +410,10 @@ app.controller('profileController', ['$rootScope', '$scope', '$http', function($
 					console.log(object_by_id);
 					var index = $scope.rentals.indexOf(object_by_id);
 					$scope.rentals[index].invoice.payed = rentalPayed;
+					rental.invoice.paying = false;
+					
+					var index = $scope.receipt.rentals.indexOf(response.data[i]);
+					$scope.receipt.rentals.splice(index, 1);
 				};
 			}else{
 				$scope.error = response.data.error;
