@@ -98,7 +98,7 @@ $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
 //					//
 //////////////////////
 
-$app->get('/movie/add/{movieId}/{movieName}/{movieReleaseDate}/{movieDescription}' {
+$app->get('/movie/add/{movieId}/{movieName}/{movieReleaseDate}/{movieDescription}', function ($request, $response, $args) {
   if (addMovie($args['movieId'], $args['movieName'], $args['movieReleaseDate'], $args['movieDescription'])) {
     createResponse(array('succes' => 'Succesfully created movie.'));
   } else {
