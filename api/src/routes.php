@@ -99,11 +99,11 @@ $app->get('/actors/movie/{movieId}', function ($request, $response, $args) {
 //////////////////////
 
 $app->get('/actors/movie/{movieId}/{movieName}/{movieReleaseDate}/{movieDescription}', function ($request, $response, $args) {
-	if(addMovie($args['movieId'], $args['movieName'], $args['movieReleaseDate'], $args['movieDescription'])){
-		createResponse(array('succes' => 'Succesfully created movie.'));
-	} else {
-		createResponse(array('error' => 'Could not create movie.'));
-	}
+if(addMovie($args['movieId'], $args['movieName'], $args['movieReleaseDate'], $args['movieDescription'])){
+createResponse(array('succes' => 'Succesfully created movie.'));
+} else {
+createResponse(array('error' => 'Could not create movie.'));
+}
 });
 
 $app->get('/movie/{movieId}', function ($request, $response, $args) {
