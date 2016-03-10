@@ -78,7 +78,7 @@
   // if everything is ok, try to upload file
   } else {
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-          echo file_get_contents('https://movie-rental.8t2.eu/api/movie/add/'.$id.'/'.$_POST['title'].'/'.$_POST['releaseDate'].'/'.$_POST['description'],false,$context);
+          echo file_get_contents('https://movie-rental.8t2.eu/api/movie/add/'.$id.'/'.$_POST['title'].'/'.$_POST['releaseDate'].'/'.$_POST['description'],false);
       }
   }
 ?>
